@@ -770,7 +770,10 @@ document.addEventListener('keydown', e => {
 });
 
 // ── TAP CARD ─────────────────────────────────────────────────────────────────
-cardEl.addEventListener('click', flip);
+cardEl.addEventListener('click', (e) => {
+  if (e.target.closest('.btn-rate')) return;
+  flip();
+});
 
 // ── SWIPE ────────────────────────────────────────────────────────────────────
 let tx = 0, ty = 0;

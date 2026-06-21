@@ -2,19 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Build in the AI Era</title>
   <style>
     :root {
-      --bg: #0d0d14;
-      --surface: #14141e;
-      --surface2: #1a1a28;
-      --border: #272736;
-      --text: #e2e2f0;
-      --muted: #7878a0;
+      --bg: #07070f;
+      --surface: #0d0d1c;
+      --border: #181828;
+      --text: #eeeef8;
+      --muted: #55557a;
+      --dim: #35354e;
       --accent: #7c6ff7;
-      --green: #4ade80;
-      --red: #f87171;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -27,11 +25,12 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     /* ── Header ── */
     header {
-      padding: 14px 20px;
+      padding: max(14px, env(safe-area-inset-top, 14px)) 20px 13px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -40,8 +39,9 @@
     }
 
     .logo {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
+      letter-spacing: .01em;
       background: linear-gradient(135deg, #c084fc, #818cf8);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -50,19 +50,18 @@
 
     .header-stats {
       display: flex;
-      gap: 18px;
-      font-size: 13px;
+      gap: 16px;
+      font-size: 12px;
       color: var(--muted);
     }
-
     .header-stats strong { color: var(--text); font-weight: 600; }
 
     /* ── Progress bar ── */
-    .progress-wrap { height: 3px; background: var(--border); flex-shrink: 0; }
+    .progress-wrap { height: 2px; background: var(--border); flex-shrink: 0; }
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, #c084fc, #818cf8);
-      transition: width 0.5s ease;
+      background: var(--cat-color, var(--accent));
+      transition: width 0.5s ease, background-color 0.4s ease;
       width: 0%;
     }
 
@@ -72,34 +71,38 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 20px 16px 24px;
-      gap: 16px;
+      padding: 14px 16px 16px;
+      gap: 12px;
+      min-height: 0;
     }
 
     .deck-meta {
-      font-size: 13px;
-      color: var(--muted);
+      font-size: 11px;
+      color: var(--dim);
       display: flex;
-      gap: 14px;
+      gap: 8px;
+      flex-shrink: 0;
     }
-
-    .deck-meta span { white-space: nowrap; }
 
     /* ── Card (3-D flip) ── */
     .scene {
       width: 100%;
-      max-width: 620px;
+      max-width: 520px;
       perspective: 1400px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
     }
 
     .card {
-      width: 100%;
+      flex: 1;
       display: grid;
       transform-style: preserve-3d;
-      transition: transform 0.55s cubic-bezier(.4,0,.2,1);
+      transition: transform 0.52s cubic-bezier(.4,0,.2,1);
       cursor: pointer;
       border-radius: 20px;
+      min-height: 380px;
     }
 
     .card.flipped { transform: rotateY(180deg); }
@@ -109,148 +112,152 @@
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       background: var(--surface);
-      border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 28px 28px 24px;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--cat-color, var(--dim));
+      transition: border-top-color 0.4s ease;
     }
 
     .card-back { transform: rotateY(180deg); }
 
-    /* Front */
-    .card-front {
+    /* ── Card header (shared by both faces) ── */
+    .card-header {
+      display: flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      gap: 14px;
-      min-height: 300px;
+      justify-content: space-between;
+      padding: 13px 20px 11px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
     }
 
-    .card-num { font-size: 12px; color: var(--muted); }
-
-    .cat-tag {
-      font-size: 11px;
+    .cat-name {
+      font-size: 10px;
       font-weight: 700;
-      letter-spacing: .07em;
+      letter-spacing: .12em;
       text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 20px;
-      border: 1px solid;
-      display: inline-block;
+      transition: color 0.4s ease;
+    }
+
+    .card-num {
+      font-size: 11px;
+      color: var(--dim);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── Front face ── */
+    .card-front { min-height: 380px; }
+
+    .card-content-front {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 24px 32px;
+      text-align: center;
     }
 
     .question {
-      font-size: clamp(17px, 4vw, 24px);
-      font-weight: 600;
-      line-height: 1.45;
-      max-width: 460px;
+      font-size: clamp(20px, 5.5vw, 28px);
+      font-weight: 700;
+      line-height: 1.4;
     }
 
-    .tap-hint { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    /* ── Back face ── */
+    .card-back { min-height: 380px; }
 
-    /* Back */
-    .card-back { gap: 12px; min-height: 300px; }
-
-    .ans-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-      color: var(--muted);
+    .card-content-back {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 18px 20px 14px;
+      gap: 12px;
+      overflow: hidden;
+      min-height: 0;
     }
 
     .answer {
-      font-size: clamp(14px, 3.2vw, 17px);
+      font-size: clamp(14px, 4.2vw, 17px);
       font-weight: 600;
-      line-height: 1.55;
+      line-height: 1.6;
+      flex-shrink: 0;
     }
 
-    .divider { height: 1px; background: var(--border); }
-
-    .coach-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+    .divider { height: 1px; background: var(--border); flex-shrink: 0; }
 
     .explanation {
       font-size: 13px;
       line-height: 1.75;
       color: var(--muted);
       flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
+    /* ── Rating buttons ── */
     .rate-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 4px;
+      gap: 8px;
+      padding: 12px 20px 18px;
+      flex-shrink: 0;
     }
 
     .btn-rate {
-      padding: 13px 16px;
-      border-radius: 12px;
-      border: 1px solid;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: opacity .15s, transform .1s;
-      background: transparent;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 3px;
+      padding: 12px 8px 11px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform .1s, opacity .1s;
+      background: transparent;
     }
 
-    .btn-rate:active { transform: scale(.96); }
+    .btn-rate:active { transform: scale(.95); opacity: .75; }
 
-    /* 4-tier rating buttons */
-    .btn-blackout { color: #f87171; border-color: rgba(248,113,113,.35); background: rgba(248,113,113,.08); }
-    .btn-blackout:hover { background: rgba(248,113,113,.2); }
-
-    .btn-hard { color: #fb923c; border-color: rgba(251,146,60,.35); background: rgba(251,146,60,.08); }
-    .btn-hard:hover { background: rgba(251,146,60,.2); }
-
-    .btn-good { color: #4ade80; border-color: rgba(74,222,128,.35); background: rgba(74,222,128,.08); }
-    .btn-good:hover { background: rgba(74,222,128,.2); }
-
-    .btn-easy { color: #60a5fa; border-color: rgba(96,165,250,.35); background: rgba(96,165,250,.08); }
-    .btn-easy:hover { background: rgba(96,165,250,.2); }
-
-    .rate-labels {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0 10px;
-      font-size: 10px;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 2px;
+    .btn-num {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1;
     }
 
-    /* ── Show-answer button ── */
-    .show-wrap { width: 100%; max-width: 620px; }
+    .btn-lbl {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      opacity: .75;
+    }
+
+    .btn-blackout { color: #f87171; border-color: rgba(248,113,113,.2); background: rgba(248,113,113,.07); }
+    .btn-hard     { color: #fb923c; border-color: rgba(251,146,60,.2);  background: rgba(251,146,60,.07);  }
+    .btn-good     { color: #4ade80; border-color: rgba(74,222,128,.2);  background: rgba(74,222,128,.07);  }
+    .btn-easy     { color: #60a5fa; border-color: rgba(96,165,250,.2);  background: rgba(96,165,250,.07);  }
+
+    /* ── Reveal button ── */
+    .show-wrap { width: 100%; max-width: 520px; flex-shrink: 0; }
 
     .btn-show {
       width: 100%;
-      padding: 15px;
-      border-radius: 14px;
+      padding: 16px;
+      border-radius: 16px;
       background: var(--accent);
       color: #fff;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       border: none;
       cursor: pointer;
       transition: background .2s, transform .1s, opacity .3s;
     }
 
-    .btn-show:hover { background: #6b5ef5; }
     .btn-show:active { transform: scale(.98); }
     .btn-show.gone { opacity: 0; pointer-events: none; }
-
-    .swipe-note { font-size: 12px; color: var(--muted); }
 
     /* ── Session complete ── */
     #session-done {
@@ -258,20 +265,20 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 20px;
+      gap: 16px;
       padding: 40px 20px;
-      max-width: 480px;
+      max-width: 440px;
       margin: auto;
+      flex: 1;
+      justify-content: center;
     }
-
     #session-done.show { display: flex; }
-
-    #session-done h2 { font-size: 26px; font-weight: 700; }
+    #session-done h2 { font-size: 24px; font-weight: 700; }
 
     .done-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 8px;
       width: 100%;
     }
 
@@ -279,25 +286,22 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 18px;
+      padding: 16px;
     }
 
-    .done-card .val { font-size: 30px; font-weight: 700; }
-    .done-card .lbl { font-size: 12px; color: var(--muted); margin-top: 3px; }
+    .done-card .val { font-size: 28px; font-weight: 700; }
+    .done-card .lbl { font-size: 11px; color: var(--muted); margin-top: 3px; }
 
     .btn-next {
       padding: 15px 44px;
-      border-radius: 14px;
+      border-radius: 16px;
       background: var(--accent);
       color: #fff;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       border: none;
       cursor: pointer;
-      transition: background .2s;
     }
-
-    .btn-next:hover { background: #6b5ef5; }
 
     #main-area.hide { display: none; }
 
@@ -309,12 +313,13 @@
       text-align: center;
       gap: 16px;
       padding: 40px 20px;
-      max-width: 480px;
+      max-width: 440px;
       margin: auto;
+      flex: 1;
+      justify-content: center;
     }
-
     #caught-up.show { display: flex; }
-    #caught-up h2 { font-size: 26px; font-weight: 700; }
+    #caught-up h2 { font-size: 24px; font-weight: 700; }
 
     .next-due-box {
       background: var(--surface);
@@ -333,8 +338,8 @@
 <header>
   <div class="logo">✦ Build in the AI Era</div>
   <div class="header-stats">
-    <div>Due today <strong id="h-due">—</strong></div>
-    <div>🔥 <strong id="h-streak">0</strong> days</div>
+    <div>Due <strong id="h-due">—</strong></div>
+    <div>🔥 <strong id="h-streak">0</strong></div>
   </div>
 </header>
 
@@ -342,36 +347,50 @@
 
 <main id="main-area">
   <div class="deck-meta">
-    <span id="m-left">— cards</span>
+    <span id="m-left">—</span>
     <span>·</span>
-    <span id="m-mastered">0 nailed</span>
+    <span id="m-mastered">0 / 50 seen</span>
   </div>
 
   <div class="scene">
     <div class="card" id="card">
       <!-- FRONT -->
       <div class="card-face card-front">
-        <div class="card-num" id="f-num">1 / 50</div>
-        <div class="cat-tag" id="f-cat">Category</div>
-        <div class="question" id="f-q">Loading…</div>
-        <div class="tap-hint">Tap to reveal the answer</div>
+        <div class="card-header">
+          <span class="cat-name" id="f-cat">Category</span>
+          <span class="card-num" id="f-num">1 / 50</span>
+        </div>
+        <div class="card-content-front">
+          <div class="question" id="f-q">Loading…</div>
+        </div>
       </div>
       <!-- BACK -->
       <div class="card-face card-back">
-        <div class="ans-label">Answer</div>
-        <div class="answer" id="b-ans"></div>
-        <div class="divider"></div>
-        <div class="coach-label">Why it matters</div>
-        <div class="explanation" id="b-exp"></div>
-        <div class="rate-row">
-          <button class="btn-rate btn-blackout" onclick="rate(0)">🫥 Blackout</button>
-          <button class="btn-rate btn-hard"     onclick="rate(1)">😓 Hard</button>
-          <button class="btn-rate btn-good"     onclick="rate(2)">✓ Good</button>
-          <button class="btn-rate btn-easy"     onclick="rate(3)">⚡ Easy</button>
+        <div class="card-header">
+          <span class="cat-name" id="b-cat">Category</span>
         </div>
-        <div class="rate-labels">
-          <span>Blank · Struggled</span>
-          <span>Got it · Too easy</span>
+        <div class="card-content-back">
+          <div class="answer" id="b-ans"></div>
+          <div class="divider"></div>
+          <div class="explanation" id="b-exp"></div>
+        </div>
+        <div class="rate-row">
+          <button class="btn-rate btn-blackout" onclick="rate(0)">
+            <span class="btn-num">1</span>
+            <span class="btn-lbl">Blackout</span>
+          </button>
+          <button class="btn-rate btn-hard" onclick="rate(1)">
+            <span class="btn-num">2</span>
+            <span class="btn-lbl">Hard</span>
+          </button>
+          <button class="btn-rate btn-good" onclick="rate(2)">
+            <span class="btn-num">3</span>
+            <span class="btn-lbl">Good</span>
+          </button>
+          <button class="btn-rate btn-easy" onclick="rate(3)">
+            <span class="btn-num">4</span>
+            <span class="btn-lbl">Easy</span>
+          </button>
         </div>
       </div>
     </div>
@@ -380,15 +399,13 @@
   <div class="show-wrap">
     <button class="btn-show" id="show-btn" onclick="flip()">Reveal answer</button>
   </div>
-
-  <div class="swipe-note">Keys: 1 Blackout · 2 Hard · 3 Good · 4 Easy</div>
 </main>
 
 <!-- Session complete -->
 <div id="session-done">
-  <div style="font-size:52px">🎯</div>
-  <h2>Session Done!</h2>
-  <p style="color:var(--muted)" id="d-subtitle">Cards scheduled for spaced review</p>
+  <div style="font-size:48px">🎯</div>
+  <h2>Session done</h2>
+  <p style="color:var(--muted);font-size:14px" id="d-subtitle">Cards scheduled for spaced review</p>
   <div class="done-grid">
     <div class="done-card"><div class="val" id="d-easy"  style="color:#60a5fa">—</div><div class="lbl">Easy</div></div>
     <div class="done-card"><div class="val" id="d-good"  style="color:#4ade80">—</div><div class="lbl">Good</div></div>
@@ -404,14 +421,14 @@
 
 <!-- All caught up -->
 <div id="caught-up">
-  <div style="font-size:52px">✨</div>
-  <h2>All caught up!</h2>
-  <p style="color:var(--muted)">Spaced repetition is working — your next cards are scheduled below</p>
+  <div style="font-size:48px">✨</div>
+  <h2>All caught up</h2>
+  <p style="color:var(--muted);font-size:14px">Spaced repetition is working — your next cards are scheduled below</p>
   <div class="next-due-box">
     <div class="due-count" id="cu-count">—</div>
     <div class="due-label" id="cu-label">cards due tomorrow</div>
   </div>
-  <p style="font-size:13px; color:var(--muted)">Come back then for your next review session</p>
+  <p style="font-size:12px;color:var(--dim)">Come back then for your next session</p>
 </div>
 
 <script>
@@ -837,24 +854,25 @@ function render(card) {
   document.getElementById('f-num').textContent = `${idx + 1} / ${deck.length}`;
 
   const col = CAT_COLORS[card.cat] || '#888';
-  const catEl = document.getElementById('f-cat');
-  catEl.textContent    = card.cat;
-  catEl.style.color       = col;
-  catEl.style.borderColor = col + '44';
-  catEl.style.background  = col + '14';
+  cardEl.style.setProperty('--cat-color', col);
+  document.getElementById('prog').style.setProperty('--cat-color', col);
+  ['f-cat', 'b-cat'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.textContent = card.cat; el.style.color = col; }
+  });
 
   document.getElementById('f-q').textContent   = card.q;
   document.getElementById('b-ans').textContent = card.a;
   document.getElementById('b-exp').textContent = card.exp;
 
-  document.getElementById('prog').style.width =
-    (idx / deck.length * 100) + '%';
+  const pct = (idx / deck.length * 100) + '%';
+  document.getElementById('prog').style.width = pct;
   document.getElementById('m-left').textContent =
-    `${deck.length - idx} cards`;
+    `${deck.length - idx} left`;
 
   const learned = CARDS.filter(c => stats[c.id].due !== null).length;
   document.getElementById('m-mastered').textContent =
-    `${learned} / ${CARDS.length} introduced`;
+    `${learned} / ${CARDS.length} seen`;
 
   updateHeader();
 }

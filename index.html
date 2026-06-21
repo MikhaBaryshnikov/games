@@ -25,6 +25,7 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+
     }
 
     /* ── Header ── */
@@ -76,6 +77,7 @@
     }
 
 
+
     /* ── Card (3-D flip) ── */
     .scene {
       width: 100%;
@@ -94,6 +96,7 @@
       transition: transform 0.52s cubic-bezier(.4,0,.2,1);
       cursor: pointer;
       border-radius: 20px;
+      min-height: 380px;
     }
 
     .card.flipped { transform: rotateY(180deg); }
@@ -120,6 +123,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 18px 8px;
+
       border-bottom: 1px solid var(--border);
       flex-shrink: 0;
     }
@@ -139,12 +143,14 @@
     }
 
     /* ── Front face ── */
+
     .card-content-front {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px 20px 24px;
+
       text-align: center;
     }
 
@@ -155,6 +161,7 @@
     }
 
     /* ── Back face ── */
+
     .card-content-back {
       flex: 1;
       display: flex;
@@ -163,6 +170,7 @@
       gap: 10px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
+
       min-height: 0;
     }
 
@@ -190,6 +198,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 8px;
       padding: 10px 18px max(14px, env(safe-area-inset-bottom, 14px));
+
       flex-shrink: 0;
     }
 
@@ -200,6 +209,7 @@
       justify-content: center;
       gap: 3px;
       padding: 10px 8px 9px;
+
       border-radius: 14px;
       border: 1px solid transparent;
       cursor: pointer;
@@ -211,6 +221,7 @@
 
     .btn-num {
       font-size: 18px;
+
       font-weight: 700;
       line-height: 1;
     }
@@ -230,6 +241,7 @@
 
     /* ── Reveal button ── */
     .show-wrap { width: 100%; max-width: 520px; flex-shrink: 0; padding-bottom: max(10px, env(safe-area-inset-bottom, 10px)); }
+
 
     .btn-show {
       width: 100%;
@@ -334,6 +346,7 @@
 <div class="progress-wrap"><div class="progress-fill" id="prog"></div></div>
 
 <main id="main-area">
+
   <div class="scene">
     <div class="card" id="card">
       <!-- FRONT -->
@@ -849,6 +862,7 @@ function render(card) {
 
   const pct = (idx / deck.length * 100) + '%';
   document.getElementById('prog').style.width = pct;
+
 
   updateHeader();
 }

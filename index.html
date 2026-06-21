@@ -207,11 +207,28 @@
 
     .btn-rate:active { transform: scale(.96); }
 
-    .btn-wrong { color: var(--red); border-color: rgba(248,113,113,.35); background: rgba(248,113,113,.08); }
-    .btn-wrong:hover { background: rgba(248,113,113,.18); }
+    /* 4-tier rating buttons */
+    .btn-blackout { color: #f87171; border-color: rgba(248,113,113,.35); background: rgba(248,113,113,.08); }
+    .btn-blackout:hover { background: rgba(248,113,113,.2); }
 
-    .btn-right { color: var(--green); border-color: rgba(74,222,128,.35); background: rgba(74,222,128,.08); }
-    .btn-right:hover { background: rgba(74,222,128,.18); }
+    .btn-hard { color: #fb923c; border-color: rgba(251,146,60,.35); background: rgba(251,146,60,.08); }
+    .btn-hard:hover { background: rgba(251,146,60,.2); }
+
+    .btn-good { color: #4ade80; border-color: rgba(74,222,128,.35); background: rgba(74,222,128,.08); }
+    .btn-good:hover { background: rgba(74,222,128,.2); }
+
+    .btn-easy { color: #60a5fa; border-color: rgba(96,165,250,.35); background: rgba(96,165,250,.08); }
+    .btn-easy:hover { background: rgba(96,165,250,.2); }
+
+    .rate-labels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 10px;
+      font-size: 10px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 2px;
+    }
 
     /* ── Show-answer button ── */
     .show-wrap { width: 100%; max-width: 620px; }
@@ -283,6 +300,32 @@
     .btn-next:hover { background: #6b5ef5; }
 
     #main-area.hide { display: none; }
+
+    /* ── All caught up ── */
+    #caught-up {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+      padding: 40px 20px;
+      max-width: 480px;
+      margin: auto;
+    }
+
+    #caught-up.show { display: flex; }
+    #caught-up h2 { font-size: 26px; font-weight: 700; }
+
+    .next-due-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 28px;
+      width: 100%;
+    }
+
+    .next-due-box .due-count { font-size: 28px; font-weight: 700; color: var(--accent); }
+    .next-due-box .due-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
   </style>
 </head>
 <body>
@@ -290,8 +333,8 @@
 <header>
   <div class="logo">✦ AI Designer Coaching</div>
   <div class="header-stats">
-    <div>Streak <strong id="h-streak">0</strong></div>
-    <div>Score <strong id="h-score">—</strong></div>
+    <div>Due today <strong id="h-due">—</strong></div>
+    <div>🔥 <strong id="h-streak">0</strong> days</div>
   </div>
 </header>
 
@@ -321,8 +364,14 @@
         <div class="coach-label">Why it works</div>
         <div class="explanation" id="b-exp"></div>
         <div class="rate-row">
-          <button class="btn-rate btn-wrong" onclick="rate(false)">✗ &nbsp;Need Practice</button>
-          <button class="btn-rate btn-right" onclick="rate(true)">✓ &nbsp;Nailed It</button>
+          <button class="btn-rate btn-blackout" onclick="rate(0)">🫥 Blackout</button>
+          <button class="btn-rate btn-hard"     onclick="rate(1)">😓 Hard</button>
+          <button class="btn-rate btn-good"     onclick="rate(2)">✓ Good</button>
+          <button class="btn-rate btn-easy"     onclick="rate(3)">⚡ Easy</button>
+        </div>
+        <div class="rate-labels">
+          <span>Blank · Struggled</span>
+          <span>Got it · Too easy</span>
         </div>
       </div>
     </div>
@@ -332,21 +381,37 @@
     <button class="btn-show" id="show-btn" onclick="flip()">How should I answer this?</button>
   </div>
 
-  <div class="swipe-note">Swipe right = Nailed it &nbsp;·&nbsp; Swipe left = Need practice</div>
+  <div class="swipe-note">Keys: 1 Blackout · 2 Hard · 3 Good · 4 Easy</div>
 </main>
 
 <!-- Session complete -->
 <div id="session-done">
   <div style="font-size:52px">🎯</div>
-  <h2>Round Complete!</h2>
-  <p style="color:var(--muted)">Questions you need practice on will come back more often</p>
+  <h2>Session Done!</h2>
+  <p style="color:var(--muted)" id="d-subtitle">Cards scheduled for spaced review</p>
   <div class="done-grid">
-    <div class="done-card"><div class="val" id="d-right" style="color:var(--green)">—</div><div class="lbl">Nailed It</div></div>
-    <div class="done-card"><div class="val" id="d-wrong" style="color:var(--red)">—</div><div class="lbl">Need Practice</div></div>
-    <div class="done-card"><div class="val" id="d-acc">—</div><div class="lbl">Confidence</div></div>
-    <div class="done-card"><div class="val" id="d-streak">—</div><div class="lbl">Best Streak</div></div>
+    <div class="done-card"><div class="val" id="d-easy"  style="color:#60a5fa">—</div><div class="lbl">Easy</div></div>
+    <div class="done-card"><div class="val" id="d-good"  style="color:#4ade80">—</div><div class="lbl">Good</div></div>
+    <div class="done-card"><div class="val" id="d-hard"  style="color:#fb923c">—</div><div class="lbl">Hard</div></div>
+    <div class="done-card"><div class="val" id="d-black" style="color:#f87171">—</div><div class="lbl">Blackout</div></div>
   </div>
-  <button class="btn-next" onclick="nextRound()">Keep Going →</button>
+  <div class="next-due-box">
+    <div class="due-count" id="d-tomorrow">—</div>
+    <div class="due-label" id="d-due-label">cards due tomorrow</div>
+  </div>
+  <button class="btn-next" onclick="startSession()">Done for now</button>
+</div>
+
+<!-- All caught up -->
+<div id="caught-up">
+  <div style="font-size:52px">✨</div>
+  <h2>All caught up!</h2>
+  <p style="color:var(--muted)">Spaced repetition is working — your next cards are scheduled below</p>
+  <div class="next-due-box">
+    <div class="due-count" id="cu-count">—</div>
+    <div class="due-label" id="cu-label">cards due tomorrow</div>
+  </div>
+  <p style="font-size:13px; color:var(--muted)">Come back then for your next review session</p>
 </div>
 
 <script>
@@ -625,65 +690,146 @@ const CAT_COLORS = {
   "Mindset":              "#c084fc"
 };
 
-// ── PERSISTENCE ──────────────────────────────────────────────────────────────
-const STORE_KEY = 'ai-designer-coaching-v1';
+// ── DATE HELPERS ─────────────────────────────────────────────────────────────
+function getToday() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
 
-function load() {
+function dateAddDays(dateStr, days) {
+  // Use noon to avoid DST edge cases
+  const d = new Date(dateStr + 'T12:00:00');
+  d.setDate(d.getDate() + days);
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function daysUntil(dateStr) {
+  const today = new Date(getToday() + 'T12:00:00');
+  const target = new Date(dateStr + 'T12:00:00');
+  return Math.round((target - today) / 86400000);
+}
+
+// ── PERSISTENCE ──────────────────────────────────────────────────────────────
+// v2: SM-2 schema — do not reuse v1 key
+const STORE_KEY = 'ai-designer-coaching-v2';
+
+function loadState() {
   try { const s = localStorage.getItem(STORE_KEY); if (s) return JSON.parse(s); } catch(e) {}
   return null;
 }
 
-function save() {
-  try { localStorage.setItem(STORE_KEY, JSON.stringify({ stats, totRight, totWrong, bestStreak })); } catch(e) {}
+function saveState() {
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify({ stats, dayStreak, lastStudyDay }));
+  } catch(e) {}
 }
 
+// Per-card SM-2 state
+// { interval, easeFactor, repetitions, due, lastReview }
 let stats = {};
-let totRight = 0, totWrong = 0, bestStreak = 0;
+let dayStreak = 0;
+let lastStudyDay = null;
 
-const saved = load();
+const saved = loadState();
 if (saved) {
-  stats      = saved.stats      || {};
-  totRight   = saved.totRight   || 0;
-  totWrong   = saved.totWrong   || 0;
-  bestStreak = saved.bestStreak || 0;
+  stats        = saved.stats        || {};
+  dayStreak    = saved.dayStreak    || 0;
+  lastStudyDay = saved.lastStudyDay || null;
 }
-CARDS.forEach(c => { if (!stats[c.id]) stats[c.id] = { right:0, wrong:0 }; });
 
-// ── SPACED-REPETITION DECK ───────────────────────────────────────────────────
+// Init cards that have no entry yet
+CARDS.forEach(c => {
+  if (!stats[c.id]) stats[c.id] = { interval:1, easeFactor:2.5, repetitions:0, due:null, lastReview:null };
+});
+
+// ── SM-2 ALGORITHM ────────────────────────────────────────────────────────────
+// quality: 0=Blackout, 1=Hard, 2=Good, 3=Easy
+function sm2Update(cardId, quality) {
+  const s = stats[cardId];
+  const today = getToday();
+
+  if (quality === 0) {
+    // Blackout: reset, see tomorrow
+    s.repetitions = 0;
+    s.interval    = 1;
+    s.easeFactor  = Math.max(1.3, s.easeFactor - 0.20);
+
+  } else if (quality === 1) {
+    // Hard: small interval boost, ease drops, don't advance repetitions
+    s.interval   = s.due === null ? 1 : Math.max(1, Math.round(s.interval * 1.2));
+    s.easeFactor = Math.max(1.3, s.easeFactor - 0.15);
+
+  } else if (quality === 2) {
+    // Good: standard SM-2 progression
+    if      (s.repetitions === 0) s.interval = 1;
+    else if (s.repetitions === 1) s.interval = 4;
+    else                          s.interval = Math.round(s.interval * s.easeFactor);
+    s.repetitions += 1;
+    // easeFactor unchanged
+
+  } else {
+    // Easy: faster intervals, ease grows
+    if      (s.repetitions === 0) s.interval = 4;
+    else if (s.repetitions === 1) s.interval = 7;
+    else                          s.interval = Math.round(s.interval * s.easeFactor * 1.3);
+    s.repetitions += 1;
+    s.easeFactor = Math.min(2.9, s.easeFactor + 0.15);
+  }
+
+  s.due        = dateAddDays(today, s.interval);
+  s.lastReview = today;
+}
+
+// ── DECK BUILDING ─────────────────────────────────────────────────────────────
+const MAX_NEW_PER_SESSION = 10;
+
 function buildDeck() {
-  const pool = [];
-  CARDS.forEach(c => {
-    const s = stats[c.id];
-    const seen = s.right + s.wrong;
-    const w = seen === 0 ? 2 : Math.min(6, Math.ceil((s.wrong + 1) / (s.right + 1) * 2));
-    for (let i = 0; i < w; i++) pool.push(c);
-  });
-  for (let i = pool.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
-  }
-  const deck = [];
-  for (const c of pool) {
-    if (!deck.length || c.id !== deck[deck.length-1].id) deck.push(c);
-    if (deck.length >= 55) break;
-  }
+  const today = getToday();
+
+  const due     = CARDS.filter(c => stats[c.id].due !== null && stats[c.id].due <= today);
+  const newCards = CARDS.filter(c => stats[c.id].due === null);
+
+  shuffle(due);
+  shuffle(newCards);
+
+  const deck = [...due, ...newCards.slice(0, MAX_NEW_PER_SESSION)];
+  shuffle(deck);
   return deck;
 }
 
-// ── STATE ────────────────────────────────────────────────────────────────────
-let deck = buildDeck();
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+function nextDueInfo() {
+  const today = getToday();
+  const futureDates = CARDS
+    .map(c => stats[c.id].due)
+    .filter(d => d && d > today)
+    .sort();
+  if (!futureDates.length) return null;
+  const nearest = futureDates[0];
+  const count   = futureDates.filter(d => d === nearest).length;
+  return { date: nearest, count, days: daysUntil(nearest) };
+}
+
+// ── SESSION STATE ─────────────────────────────────────────────────────────────
+let deck = [];
 let idx = 0;
 let flipped = false;
-let streak = 0;
-let sessionRight = 0, sessionWrong = 0;
-let sessionBest = 0;
+let sessionCounts = [0,0,0,0]; // [blackout, hard, good, easy]
 
-// ── UI ───────────────────────────────────────────────────────────────────────
-const cardEl  = document.getElementById('card');
-const showBtn = document.getElementById('show-btn');
-const mainEl  = document.getElementById('main-area');
-const doneEl  = document.getElementById('session-done');
+// ── DOM ───────────────────────────────────────────────────────────────────────
+const cardEl   = document.getElementById('card');
+const showBtn  = document.getElementById('show-btn');
+const mainEl   = document.getElementById('main-area');
+const doneEl   = document.getElementById('session-done');
+const caughtEl = document.getElementById('caught-up');
 
+// ── RENDER ────────────────────────────────────────────────────────────────────
 function render(card) {
   flipped = false;
   cardEl.classList.remove('flipped');
@@ -693,8 +839,8 @@ function render(card) {
 
   const col = CAT_COLORS[card.cat] || '#888';
   const catEl = document.getElementById('f-cat');
-  catEl.textContent = card.cat;
-  catEl.style.color = col;
+  catEl.textContent    = card.cat;
+  catEl.style.color       = col;
   catEl.style.borderColor = col + '44';
   catEl.style.background  = col + '14';
 
@@ -702,21 +848,29 @@ function render(card) {
   document.getElementById('b-ans').textContent = card.a;
   document.getElementById('b-exp').textContent = card.exp;
 
-  document.getElementById('prog').style.width = (idx / deck.length * 100) + '%';
-  document.getElementById('m-left').textContent = `${deck.length - idx} questions left`;
+  document.getElementById('prog').style.width =
+    (idx / deck.length * 100) + '%';
+  document.getElementById('m-left').textContent =
+    `${deck.length - idx} cards`;
 
-  const nailed = CARDS.filter(c => { const s = stats[c.id]; return s.right >= 3 && s.right > s.wrong; }).length;
-  document.getElementById('m-mastered').textContent = `${nailed} nailed`;
+  const learned = CARDS.filter(c => stats[c.id].due !== null).length;
+  document.getElementById('m-mastered').textContent =
+    `${learned} / ${CARDS.length} introduced`;
 
   updateHeader();
 }
 
 function updateHeader() {
-  document.getElementById('h-streak').textContent = streak;
-  const tot = totRight + totWrong;
-  document.getElementById('h-score').textContent = tot ? Math.round(totRight / tot * 100) + '%' : '—';
+  const today = getToday();
+  const dueCount = CARDS.filter(c => {
+    const d = stats[c.id].due;
+    return d !== null && d <= today;
+  }).length;
+  document.getElementById('h-due').textContent    = dueCount || '✓';
+  document.getElementById('h-streak').textContent = dayStreak;
 }
 
+// ── FLIP ──────────────────────────────────────────────────────────────────────
 function flip() {
   if (flipped) return;
   flipped = true;
@@ -724,58 +878,105 @@ function flip() {
   showBtn.classList.add('gone');
 }
 
-function rate(correct) {
+// ── RATE (0=Blackout 1=Hard 2=Good 3=Easy) ───────────────────────────────────
+function rate(quality) {
   const card = deck[idx];
-  if (correct) {
-    stats[card.id].right++;
-    totRight++; sessionRight++; streak++;
-    if (streak > bestStreak) bestStreak = streak;
-    if (streak > sessionBest) sessionBest = streak;
+  sm2Update(card.id, quality);
+  sessionCounts[quality]++;
+
+  // Update daily streak
+  const today = getToday();
+  const yesterday = dateAddDays(today, -1);
+  if (lastStudyDay === today) {
+    // already counted today
+  } else if (lastStudyDay === yesterday) {
+    dayStreak++;
   } else {
-    stats[card.id].wrong++;
-    totWrong++; sessionWrong++; streak = 0;
+    dayStreak = 1;
   }
-  save();
+  lastStudyDay = today;
+
+  saveState();
   idx++;
   if (idx >= deck.length) { showDone(); return; }
   render(deck[idx]);
 }
 
+// ── SESSION DONE ──────────────────────────────────────────────────────────────
 function showDone() {
   mainEl.classList.add('hide');
   doneEl.classList.add('show');
   document.getElementById('prog').style.width = '100%';
 
-  const tot = sessionRight + sessionWrong;
-  document.getElementById('d-right').textContent  = sessionRight;
-  document.getElementById('d-wrong').textContent  = sessionWrong;
-  document.getElementById('d-acc').textContent    = tot ? Math.round(sessionRight / tot * 100) + '%' : '—';
-  document.getElementById('d-streak').textContent = sessionBest;
+  document.getElementById('d-black').textContent = sessionCounts[0];
+  document.getElementById('d-hard').textContent  = sessionCounts[1];
+  document.getElementById('d-good').textContent  = sessionCounts[2];
+  document.getElementById('d-easy').textContent  = sessionCounts[3];
+
+  const info = nextDueInfo();
+  if (info) {
+    document.getElementById('d-tomorrow').textContent = info.count;
+    document.getElementById('d-due-label').textContent =
+      info.days === 1 ? 'cards due tomorrow' : `cards due in ${info.days} days`;
+  } else {
+    document.getElementById('d-tomorrow').textContent = '✓';
+    document.getElementById('d-due-label').textContent = 'all caught up';
+  }
+
+  updateHeader();
 }
 
-function nextRound() {
-  sessionRight = sessionWrong = sessionBest = 0;
+// ── START / RESTART ───────────────────────────────────────────────────────────
+function startSession() {
   doneEl.classList.remove('show');
-  mainEl.classList.remove('hide');
+  caughtEl.classList.remove('show');
+  sessionCounts = [0,0,0,0];
+
   deck = buildDeck();
-  idx = 0;
+  idx  = 0;
+
+  if (deck.length === 0) {
+    showCaughtUp();
+    return;
+  }
+
+  mainEl.classList.remove('hide');
   render(deck[0]);
 }
 
-// ── KEYBOARD ─────────────────────────────────────────────────────────────────
+function showCaughtUp() {
+  mainEl.classList.add('hide');
+  caughtEl.classList.add('show');
+
+  const info = nextDueInfo();
+  if (info) {
+    document.getElementById('cu-count').textContent = info.count;
+    document.getElementById('cu-label').textContent =
+      info.days === 1 ? 'cards due tomorrow' : `cards due in ${info.days} days`;
+  } else {
+    document.getElementById('cu-count').textContent = '🎉';
+    document.getElementById('cu-label').textContent = 'nothing due — check back tomorrow';
+  }
+  updateHeader();
+}
+
+// ── KEYBOARD ──────────────────────────────────────────────────────────────────
 document.addEventListener('keydown', e => {
-  if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); flip(); }
-  else if (e.code === 'ArrowRight' && flipped)   rate(true);
-  else if (e.code === 'ArrowLeft'  && flipped)   rate(false);
+  if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); flip(); return; }
+  if (!flipped) return;
+  if (e.key === '1') rate(0);
+  else if (e.key === '2') rate(1);
+  else if (e.key === '3') rate(2);
+  else if (e.key === '4') rate(3);
 });
 
-// ── TAP CARD ─────────────────────────────────────────────────────────────────
+// ── TAP CARD ──────────────────────────────────────────────────────────────────
 cardEl.addEventListener('click', (e) => {
   if (e.target.closest('.btn-rate')) return;
   flip();
 });
 
-// ── SWIPE ────────────────────────────────────────────────────────────────────
+// ── SWIPE (right=Good, left=Blackout) ────────────────────────────────────────
 let tx = 0, ty = 0;
 cardEl.addEventListener('touchstart', e => {
   tx = e.touches[0].clientX;
@@ -787,12 +988,12 @@ cardEl.addEventListener('touchend', e => {
   const dy = e.changedTouches[0].clientY - ty;
   if (Math.abs(dx) < 8 && Math.abs(dy) < 8) { flip(); return; }
   if (flipped && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 48) {
-    dx > 0 ? rate(true) : rate(false);
+    dx > 0 ? rate(2) : rate(0); // right=Good, left=Blackout
   }
 }, { passive: true });
 
-// ── BOOT ─────────────────────────────────────────────────────────────────────
-render(deck[0]);
+// ── BOOT ──────────────────────────────────────────────────────────────────────
+startSession();
 </script>
 </body>
 </html>

@@ -21,11 +21,11 @@
       background: var(--bg);
       color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      min-height: 100dvh;
+      height: 100dvh;
       display: flex;
       flex-direction: column;
-      overflow-x: hidden;
-      padding-bottom: env(safe-area-inset-bottom, 0px);
+      overflow: hidden;
+
     }
 
     /* ── Header ── */
@@ -71,18 +71,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 14px 16px 16px;
-      gap: 12px;
+      padding: 10px 14px 10px;
+      gap: 8px;
       min-height: 0;
     }
 
-    .deck-meta {
-      font-size: 11px;
-      color: var(--dim);
-      display: flex;
-      gap: 8px;
-      flex-shrink: 0;
-    }
+
 
     /* ── Card (3-D flip) ── */
     .scene {
@@ -128,7 +122,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 13px 20px 11px;
+      padding: 10px 18px 8px;
+
       border-bottom: 1px solid var(--border);
       flex-shrink: 0;
     }
@@ -148,14 +143,14 @@
     }
 
     /* ── Front face ── */
-    .card-front { min-height: 380px; }
 
     .card-content-front {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 28px 24px 32px;
+      padding: 20px 20px 24px;
+
       text-align: center;
     }
 
@@ -166,15 +161,16 @@
     }
 
     /* ── Back face ── */
-    .card-back { min-height: 380px; }
 
     .card-content-back {
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 18px 20px 14px;
-      gap: 12px;
-      overflow: hidden;
+      padding: 14px 18px 0;
+      gap: 10px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+
       min-height: 0;
     }
 
@@ -201,7 +197,8 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      padding: 12px 20px 18px;
+      padding: 10px 18px max(14px, env(safe-area-inset-bottom, 14px));
+
       flex-shrink: 0;
     }
 
@@ -211,7 +208,8 @@
       align-items: center;
       justify-content: center;
       gap: 3px;
-      padding: 12px 8px 11px;
+      padding: 10px 8px 9px;
+
       border-radius: 14px;
       border: 1px solid transparent;
       cursor: pointer;
@@ -222,7 +220,8 @@
     .btn-rate:active { transform: scale(.95); opacity: .75; }
 
     .btn-num {
-      font-size: 20px;
+      font-size: 18px;
+
       font-weight: 700;
       line-height: 1;
     }
@@ -241,7 +240,8 @@
     .btn-easy     { color: #60a5fa; border-color: rgba(96,165,250,.2);  background: rgba(96,165,250,.07);  }
 
     /* ── Reveal button ── */
-    .show-wrap { width: 100%; max-width: 520px; flex-shrink: 0; }
+    .show-wrap { width: 100%; max-width: 520px; flex-shrink: 0; padding-bottom: max(10px, env(safe-area-inset-bottom, 10px)); }
+
 
     .btn-show {
       width: 100%;
@@ -346,11 +346,6 @@
 <div class="progress-wrap"><div class="progress-fill" id="prog"></div></div>
 
 <main id="main-area">
-  <div class="deck-meta">
-    <span id="m-left">—</span>
-    <span>·</span>
-    <span id="m-mastered">0 / 50 seen</span>
-  </div>
 
   <div class="scene">
     <div class="card" id="card">
@@ -867,12 +862,7 @@ function render(card) {
 
   const pct = (idx / deck.length * 100) + '%';
   document.getElementById('prog').style.width = pct;
-  document.getElementById('m-left').textContent =
-    `${deck.length - idx} left`;
 
-  const learned = CARDS.filter(c => stats[c.id].due !== null).length;
-  document.getElementById('m-mastered').textContent =
-    `${learned} / ${CARDS.length} seen`;
 
   updateHeader();
 }

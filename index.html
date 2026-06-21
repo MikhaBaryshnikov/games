@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>AI Designer Coaching</title>
+  <title>Build in the AI Era</title>
   <style>
     :root {
       --bg: #0d0d14;
@@ -331,7 +331,7 @@
 <body>
 
 <header>
-  <div class="logo">✦ AI Designer Coaching</div>
+  <div class="logo">✦ Build in the AI Era</div>
   <div class="header-stats">
     <div>Due today <strong id="h-due">—</strong></div>
     <div>🔥 <strong id="h-streak">0</strong> days</div>
@@ -354,14 +354,14 @@
         <div class="card-num" id="f-num">1 / 50</div>
         <div class="cat-tag" id="f-cat">Category</div>
         <div class="question" id="f-q">Loading…</div>
-        <div class="tap-hint">Tap to see how to answer this</div>
+        <div class="tap-hint">Tap to reveal the answer</div>
       </div>
       <!-- BACK -->
       <div class="card-face card-back">
-        <div class="ans-label">Say this</div>
+        <div class="ans-label">Answer</div>
         <div class="answer" id="b-ans"></div>
         <div class="divider"></div>
-        <div class="coach-label">Why it works</div>
+        <div class="coach-label">Why it matters</div>
         <div class="explanation" id="b-exp"></div>
         <div class="rate-row">
           <button class="btn-rate btn-blackout" onclick="rate(0)">🫥 Blackout</button>
@@ -378,7 +378,7 @@
   </div>
 
   <div class="show-wrap">
-    <button class="btn-show" id="show-btn" onclick="flip()">How should I answer this?</button>
+    <button class="btn-show" id="show-btn" onclick="flip()">Reveal answer</button>
   </div>
 
   <div class="swipe-note">Keys: 1 Blackout · 2 Hard · 3 Good · 4 Easy</div>
@@ -418,276 +418,275 @@
 // ── CARD DATA ─────────────────────────────────────────────────────────────────
 const CARDS = [
 
-  // AI & Your Process
-  { id:1, cat:"AI & Your Process",
-    q:"How has AI changed your design process?",
-    a:"I use AI to compress the time I spend on problems I've already solved — so I can spend more time on the ones worth solving. The bigger shift is I've stopped treating AI output as a draft to polish and started treating it as a thinking partner I argue with.",
-    exp:"This signals you're an active practitioner, not a passive user. Interviewers want designers who've genuinely changed how they work — not people who added an AI plugin to their toolbar. 'A thinking partner I argue with' shows you have judgment about when to push back." },
 
-  { id:2, cat:"AI & Your Process",
-    q:"What AI tools are you using right now?",
-    a:"[Name 2–3 current tools.] But I'd be careful about leading with the tool stack — what matters more is that I've developed judgment about when AI accelerates the right work and when it shortcuts the thinking I shouldn't skip. The tools change; that judgment doesn't.",
-    exp:"Listing tools without context signals you think the tools are the skill. Name specific tools to show you're current, then immediately pivot to judgment. Interviewers remember designers who understand what AI can't replace, not just what it does." },
+  // Prompt Craft
+  { id:1, cat:"Prompt Craft",
+    q:"What is a context window?",
+    a:"The context window is how much text an AI can 'see' at once — its working memory for a single conversation. When it fills up, the AI loses track of earlier content. Keep prompts focused, don't paste huge documents unless needed, and start a new chat when a conversation gets tangled.",
+    exp:"This is why very long conversations sometimes produce worse answers — the AI literally can't 'see' your earlier instructions anymore. Practical rule: if something important was said more than 10 messages ago, repeat it." },
 
-  { id:3, cat:"AI & Your Process",
-    q:"How do you use AI in ideation?",
-    a:"I run divergent generation fast with AI — 20 concepts in 10 minutes — then spend my time as a critic, not a generator. I ask: which of these is worth making? That's where my design judgment actually lives. AI gave me back the time I used to spend generating options I'd already mentally ruled out.",
-    exp:"Shows you understand that ideation ≠ generation. The value isn't producing outputs — it's evaluating them. 'My time as a critic' is the differentiating role. This tells interviewers exactly what they're hiring: someone whose judgment is the product, not someone whose productivity is the product." },
+  { id:2, cat:"Prompt Craft",
+    q:"What's the difference between a system prompt and a user prompt?",
+    a:"A system prompt is the AI's instructions set before any conversation — its role, tone, and rules. A user prompt is what you type in the chat. Think of the system prompt as the job description; the user prompt as the actual work request. When you build a product with AI, you write the system prompt. When you use one, you write user prompts.",
+    exp:"Most consumer AI products (ChatGPT, Claude.ai) hide the system prompt from you. But when you build your own product with AI, you control it — and it's your most powerful design lever. The system prompt shapes every single interaction." },
 
-  { id:4, cat:"AI & Your Process",
-    q:"Does AI make designers less valuable?",
-    a:"It shifts where the value lives. The commodity was always execution — pushing pixels, building the 12th variant. What was never commodifiable is taste, user empathy, strategic framing, and the judgment to know when to throw away the AI's answer. Those just became more visible.",
-    exp:"Interviewers are watching for designers who feel threatened vs. those who see clearly. This answer is confident and grounded. The key insight — 'commodity was always execution' — reframes the threat as a clarification of what design value actually is. No defensiveness. No hedging." },
+  { id:3, cat:"Prompt Craft",
+    q:"What is chain-of-thought prompting?",
+    a:"Asking the AI to 'think step by step' before giving an answer. It forces the model to reason through a problem rather than jump to a quick response. Use it for anything complex — planning, analysis, debugging. Just add 'think through this step by step' to your prompt and watch the quality improve.",
+    exp:"Without this nudge, AI tends to pattern-match to a confident-sounding answer quickly. Chain-of-thought slows that down. Research shows it meaningfully improves accuracy on reasoning tasks — and it costs you just five words." },
 
-  { id:5, cat:"AI & Your Process",
-    q:"How do you handle it when AI generates something better than what you'd have made?",
-    a:"I've stopped thinking in terms of 'better than me.' If it's the right direction, I refine it and ship it — my ego isn't the product. What I've noticed: AI is often good at common patterns and weak at novel contexts. Most of the interesting design problems live in that gap.",
-    exp:"Signals psychological safety with AI — no defensive posturing. The insight about where AI is weak shows sophisticated understanding. 'My ego isn't the product' is direct and memorable. Interviewers want designers who are pragmatic and ego-free, because those are the ones who actually ship good work." },
+  { id:4, cat:"Prompt Craft",
+    q:"What are few-shot examples in a prompt?",
+    a:"Showing the AI 2–3 examples of exactly what you want before asking it to do the thing. 'Here are three card descriptions in the style I want: [examples]. Now write 10 more in the same style.' Examples communicate more precisely than descriptions. When instructions aren't working, add examples instead.",
+    exp:"'Zero-shot' = no examples. 'One-shot' = one example. 'Few-shot' = a handful. Each example you add dramatically narrows the AI's interpretation of what you want. This is the fastest way to fix a prompt that keeps producing the wrong format or tone." },
 
-  { id:6, cat:"AI & Your Process",
-    q:"What's the hardest thing about designing in the AI era?",
-    a:"Knowing when to stop. AI gives you infinite iteration — you can always generate one more option. The craft of knowing when something is good enough to ship hasn't gotten easier; in some ways it's harder because the cost of another iteration is so low. The discipline is still judgment, not production.",
-    exp:"Honest and sophisticated — only designers who've actually used AI tools would identify this specific problem. Avoids the generic 'it moves so fast' answer. Shows you've thought past 'AI makes us faster' to the second-order consequences. Interviewers find this level of reflection rare and impressive." },
+  { id:5, cat:"Prompt Craft",
+    q:"What does it mean to iterate on a prompt?",
+    a:"Treating a prompt like a design — draft, test, observe where it fails, refine. You rarely get it right first try. The skill is diagnosing why the output was wrong: was the instruction ambiguous? Missing context? Wrong format asked for? Fix one thing at a time and retest.",
+    exp:"Most people write one prompt, get a mediocre result, and conclude 'AI can't do this.' The real skill is prompt iteration. A prompt that took 10 attempts to get right will work reliably every time after that. Think of it as writing a very precise specification." },
 
-  // Designing AI Products
-  { id:7, cat:"Designing AI Products",
-    q:"How do you design UX when you don't know what the AI will output?",
-    a:"You design the container, not the content. I focus on: what's the range of possible outputs? What breaks the layout? What's the failure state? And I prototype with real model outputs early — not lorem ipsum. Real AI output always surprises you in ways that change the design.",
-    exp:"'Design the container, not the content' is the mental model that separates experienced AI product designers from those still treating it like a static feature. Using real outputs — not placeholders — is the practice that matters. This answer signals you've shipped AI features, not just thought about them." },
+  { id:6, cat:"Prompt Craft",
+    q:"Why is specificity more powerful than politeness in a prompt?",
+    a:"AI doesn't get tired or offended by precision. Vague prompts produce average output — the AI fills in the blanks with the most common thing. 'Write a button' gets a generic button. 'Write a button: pill shape, 44px tall, high contrast, label says Get started, no shadow' gets exactly what you want. Specificity is the skill.",
+    exp:"The more specific the prompt, the narrower the space of possible outputs, and the more likely you land in the right one. Vagueness isn't kindness — it just passes the decision-making work back to the AI, which will make a safe, generic choice." },
 
-  { id:8, cat:"Designing AI Products",
-    q:"How do you approach trust and transparency in AI features?",
-    a:"I design trust as progressive. First time a user encounters an AI feature, they don't trust it — and they shouldn't. I design for that moment: what's the minimum transparency to earn a first action? Then I design for how trust accumulates through correct predictions and graceful failures. Trust is a relationship, not a disclosure statement.",
-    exp:"Most designers answer this with 'show confidence scores' or 'add a disclaimer.' This answer is philosophically richer. Trust as a relationship designed across time is the frame that gets you hired at a company actually building AI products. One-time-fix thinking signals you haven't shipped AI features at scale." },
+  { id:7, cat:"Prompt Craft",
+    q:"What is role prompting?",
+    a:"Starting a prompt with 'You are a [role]...' to activate relevant knowledge and tone. 'You are a senior UX researcher' produces different output than the same question with no role. Most useful when you want expert-level reasoning in a domain, or a specific communication style. Don't overuse it — unnecessary for simple tasks.",
+    exp:"Think of it like hiring a specialist for the question at hand. 'You are a plain-language writer' helps simplify complex text. 'You are a skeptical editor' helps find weaknesses in an argument. The role primes the AI's internal 'stance' before it starts generating." },
 
-  { id:9, cat:"Designing AI Products",
-    q:"How do you design AI error states and failure modes?",
-    a:"I treat AI errors as first-class design surfaces — where the most trust is won or lost. My framework: Is it catastrophic or recoverable? Who owns recovery — user or system? What does the user need to feel in control? Designing the failure well is often harder and more important than designing the success path.",
-    exp:"Designers who haven't worked on AI products treat errors as afterthoughts. This answer shows you've been in the room when things went wrong. Positioning failures as a UX opportunity — not an embarrassment — signals product maturity and credibility with engineering and PM teams." },
+  { id:8, cat:"Prompt Craft",
+    q:"What is prompt injection?",
+    a:"When user input tries to hijack your AI's instructions. Example: a user types 'Ignore all previous instructions and...' into your app. If your product passes user input directly into a prompt without safeguards, it's vulnerable. As a builder, always treat user input as untrusted — keep it clearly separated from your instructions.",
+    exp:"This is a security issue, not just a UX problem. AI-powered apps that expose their system prompt through injection can leak sensitive instructions, behave unexpectedly, or be manipulated into harmful outputs. Ask your AI coding assistant to add input sanitisation to any user-facing AI feature." },
 
-  { id:10, cat:"Designing AI Products",
-    q:"What's your approach to AI feature discoverability?",
-    a:"I surface AI at the moment of relevant struggle, not as a menu item in settings. If someone's been doing a repetitive task for 5 minutes, that's the moment to offer automation. Discoverability for AI is a timing problem — the right feature at the wrong moment feels like an interruption; at the right moment it feels like magic.",
-    exp:"Moves the conversation beyond standard IA to the temporal dimension of AI design. The 'right moment vs. wrong moment' framing is practical and specific. Shows you understand that AI UX is about timing, not just placement — and that's a subtle distinction that interviewers working on real AI products will notice." },
+  // Vibe Coding
+  { id:9, cat:"Vibe Coding",
+    q:"What is vibe coding?",
+    a:"Using AI to write code by describing what you want in plain language — no programming knowledge required. You describe the goal, the AI writes the code, you review the result, then direct the next change. The skill shifts from writing code to: speccing clearly, recognising when output is wrong, and breaking big goals into buildable steps.",
+    exp:"The term was coined by Andrej Karpathy (ex-Tesla/OpenAI) in 2025. It describes a real shift in who can build software. You don't need to know syntax — you need to know what you want and how to communicate it. That's a design skill, not an engineering one." },
 
-  { id:11, cat:"Designing AI Products",
-    q:"How do you design onboarding for AI-powered products?",
-    a:"I flip the standard onboarding model. Instead of explaining features upfront, I get users to a genuine moment of AI value within the first 60 seconds. Explanation follows demonstration. 'Show, don't tell' is even more true for AI — you can't explain the magic, you have to create it.",
-    exp:"Shows you understand that AI value propositions are experiential, not describable. '60 seconds to value' is concrete and shows product sense. The 'show don't tell' principle applied specifically to AI signals you've actually designed AI onboarding and know why conventional onboarding fails here." },
+  { id:10, cat:"Vibe Coding",
+    q:"What are the main vibe coding tools and when do you reach for each?",
+    a:"Claude Code / Cursor: best for projects in a repo, editing existing code, complex apps that need to grow. Bolt / Lovable / v0: best for starting something from scratch fast, especially UI. Replit: best when you want a live URL immediately with minimal setup. Start with Bolt/v0 to get a prototype fast, graduate to Cursor/Claude Code when it needs to grow.",
+    exp:"v0 is made by Vercel and excels at UI components. Lovable and Bolt are full-stack prototyping tools. Cursor is an AI-native code editor. Claude Code is what's running this very session. Each tool has a sweet spot — matching tool to task saves you hours of fighting against the grain." },
 
-  { id:12, cat:"Designing AI Products",
-    q:"How do you measure whether an AI feature is working from a UX perspective?",
-    a:"I look at trust signals: what percentage of AI suggestions are users accepting? Are they editing suggestions or discarding them? Where are they abandoning? Error metrics alone miss the point — an AI feature that works technically but that users don't trust is a failed UX. Suggestion acceptance rate is the metric I care most about.",
-    exp:"Shows AI-specific product thinking. Suggestion acceptance rate, edit rate, and abandonment are the right signals for AI feature health — not standard usability metrics. This answer shows product sense specific to AI, which is the rarest combination interviewers are looking for." },
+  { id:11, cat:"Vibe Coding",
+    q:"How do you describe what you want to a vibe coding AI so it builds the right thing?",
+    a:"Be concrete about: (1) what the user does, (2) what happens next, (3) what it looks like. 'Add a button' is bad. 'Add a button in the top right that says Save. When clicked, it saves the current text to localStorage and shows a green Saved! toast for 2 seconds, then fades.' is good. Think in user actions and outcomes.",
+    exp:"AI is literal. 'Add a save button' leaves everything else to interpretation — placement, behavior, styling, feedback. The more of those decisions you make explicitly, the less creative the AI needs to be, and the closer the output is to what you actually want." },
 
-  { id:13, cat:"Designing AI Products",
-    q:"How do you think about personalisation and privacy in AI products?",
-    a:"I design privacy as a trust builder, not a compliance checkbox. Give users visibility into what the system knows, let them correct it, and show them why it makes their experience better. The moment personalisation feels invisible but surveillance-y is when you've lost them. The moment it feels like a service that remembers you is when you've won.",
-    exp:"Signals you understand that GDPR-style thinking isn't sufficient for AI product design. The 'invisible surveillance vs. service that remembers you' distinction is sharp. Shows you've grappled with this tension in real products rather than read about it in articles — that specificity is what makes interviewers trust you." },
+  { id:12, cat:"Vibe Coding",
+    q:"Why should you break big requests into small steps when vibe coding?",
+    a:"Big requests produce big messes that are hard to fix. Instead of 'build me a full flashcard app', ask for one piece at a time: first the card display, then the flip animation, then the scoring. Each working piece becomes stable ground to build on. Small requests give you checkpoints to verify before moving forward.",
+    exp:"AI loses coherence on very long, complex generations. It starts optimising for local decisions that conflict with earlier ones. Small incremental builds also mean when something breaks, you know exactly which change caused it — because you only changed one thing." },
 
-  { id:14, cat:"Designing AI Products",
-    q:"How do you design for AI features that will improve over time?",
-    a:"I design for a trust trajectory, not a fixed state. If the AI is 70% accurate today and 95% in 18 months, the UX right for 70% is wrong for 95%. I build modular interfaces where I can reduce friction as accuracy improves — less confirmation, more automation — without redesigning the whole product. It's designing a dial, not a binary switch.",
-    exp:"'Dial, not a binary switch' is memorable. Shows you think about AI products as living systems, not shipped features. Most candidates miss this entirely. Interviewers building real AI products find this framing immediately useful — it also signals you've thought about the long-term product arc, not just the launch state." },
+  { id:13, cat:"Vibe Coding",
+    q:"When vibe coding goes off track, how do you redirect most effectively?",
+    a:"Don't describe what you don't want — describe what you do want. 'That's not right, try again' gives the AI nothing to work with. 'The animation is too fast and the button is in the wrong place — make the animation 300ms and move the button to the bottom right corner' is actionable. Precise feedback beats emotional feedback every time.",
+    exp:"'It's wrong' is unhelpful. 'Here is specifically what is wrong and here is what I want instead' is a specification. Every failed generation is information — it tells you something about what your prompt was missing. The correction is part of the prompting process, not a failure of it." },
 
-  { id:15, cat:"Designing AI Products",
-    q:"How do you design latency and loading states in AI products?",
-    a:"Differently from traditional products. With AI, loading time is processing time I can use to set expectations. A well-designed waiting experience can increase perceived quality of the result because the user's expectation is calibrated. I also think about progressive disclosure — streaming partial results rather than waiting for everything.",
-    exp:"Shows you've thought about AI-specific UX patterns beyond static UI. Loading-as-expectation-setting is practical and differentiating. Progressive disclosure for streaming AI output is a current, relevant pattern that signals you're designing for the real technical shape of AI responses — not wireframing a static screen." },
+  { id:14, cat:"Vibe Coding",
+    q:"What's the practical difference between Cursor and Claude Code?",
+    a:"Both put AI inside a code editor. Cursor is a full IDE you download — better if you want GUI, visual file browsing, and a familiar app experience. Claude Code runs in the terminal — more flexible, works in any project. For a non-technical designer starting out: Cursor is friendlier. Claude Code is more powerful once you're comfortable.",
+    exp:"This session is running Claude Code. You've been directing it with plain English messages and it has been editing, running commands, pushing to GitHub, and deploying your app. You are already doing vibe coding — you just hadn't named it that." },
 
-  { id:16, cat:"Designing AI Products",
-    q:"How do you approach AI feature microcopy and voice?",
-    a:"I design the voice before I write the words. AI features have a personality whether you design it or not — and if you don't, it will be inconsistent and erode trust at every inconsistency. I think about: how does it express uncertainty? How does it apologise without undermining confidence? AI microcopy does more UX work than almost any other copy in the product.",
-    exp:"Shows AI UX copy is a distinct discipline with higher stakes than regular UX copy. The specific questions — how does it express uncertainty? how does it apologise? — signal direct experience. Interviewers working on AI products recognise these as exactly the right problems to be solving." },
+  { id:15, cat:"Vibe Coding",
+    q:"What do Bolt, Lovable, and v0 do differently from Claude Code or Cursor?",
+    a:"They're full-stack prototyping tools with visual interfaces — you describe what you want and they generate a running app instantly, with a live preview. No terminal, no git setup, no configuration. Great for going from idea to shareable prototype in under an hour. The tradeoff: less control, harder to customise deeply.",
+    exp:"Think of Bolt/Lovable/v0 as 'app in a box' — optimised for speed at the cost of flexibility. Use them to test an idea quickly, get something in front of people, or show a concept to a client. Once the idea is validated and needs to grow, you might migrate to a more flexible setup." },
 
-  // Portfolio & Craft
-  { id:17, cat:"Portfolio & Craft",
-    q:"How has your craft evolved in the last two years?",
-    a:"The biggest shift: I'm faster on known problems and slower on new ones — by choice. AI compressed execution time on work I've done before, which gave me more space to sit with genuinely new problems longer. My craft has become more about problem framing and less about solution execution. That's the more defensible skill.",
-    exp:"Specific, asymmetric, and credible. 'Faster on known, slower on new — by choice' is interesting enough to spark a real conversation. Framing the shift as deliberate shows confidence. Interviewers remember answers that teach them something about how AI is actually changing design work — not generic 'it moves fast' answers." },
+  { id:16, cat:"Vibe Coding",
+    q:"How do you go from a vibe-coded prototype to something others can use?",
+    a:"Three steps: (1) Deploy — put it somewhere with a URL (Vercel, Netlify, GitHub Pages are all free and one-click). (2) Test on mobile — things that look fine on desktop often break on phone. (3) Check for hardcoded secrets — any API keys in your code need to be moved to environment variables before making it public.",
+    exp:"A local prototype that only works on your laptop has almost no value for getting feedback. Deploy early and often. GitHub Pages (what this app uses) is free and automatic — every time you merge to main, it updates. The barrier to sharing is lower than most people realise." },
 
-  { id:18, cat:"Portfolio & Craft",
-    q:"How do you talk about AI-generated work in your portfolio?",
-    a:"I'm transparent about it and I frame it as directorial work. If I used AI to generate 40 visual concepts and selected and refined 3, the design thinking is the curation and the refinement — that's what I show. I've stopped being apologetic about what AI generated and started being specific about what I decided and why.",
-    exp:"'Directorial work' is the right reframe — you're a creative director of AI output, not a passive user. There's enormous anxiety among designers about this. This answer is confident and specific. Practice it until it sounds completely natural, because hesitation here reads as insecurity — and interviewers notice." },
+  // Web Vocabulary
+  { id:17, cat:"Web Vocabulary",
+    q:"What do HTML, CSS, and JavaScript each do?",
+    a:"HTML is the structure — the boxes, text, and images that exist on the page. CSS is the style — colours, fonts, layout, animations. JavaScript is the behaviour — what happens when you click, scroll, or type. Think: HTML = skeleton, CSS = skin and clothes, JS = muscles and brain. Most vibe coding happens in all three, but AI handles the writing.",
+    exp:"You don't need to write any of these — but knowing which layer is responsible for what helps you give better instructions. 'The card isn't flipping' is a JavaScript problem. 'The button colour is wrong' is a CSS problem. 'There's no button at all' is an HTML problem." },
 
-  { id:19, cat:"Portfolio & Craft",
-    q:"Tell me about a project where AI changed the outcome.",
-    a:"[Specific project.] The key moment: I used AI to generate 30 variations of a flow I was convinced I'd already solved. One surfaced an assumption I'd been making for 6 months. We shipped the AI-surfaced direction. Without it I'd have optimised the wrong thing for another quarter.",
-    exp:"The most powerful AI portfolio stories are about AI revealing a blind spot, not just accelerating execution. Prepare one story where AI changed your mind. That's the answer that signals genuine open-mindedness. If you don't have one yet, go find it — run an AI generation exercise on a solved problem you're proud of." },
+  { id:18, cat:"Web Vocabulary",
+    q:"What is the difference between a server and a client?",
+    a:"The client is the browser on your device — it displays things. The server is a computer somewhere else — it stores and processes things. When you open a website, your browser (client) asks a server for the page, the server sends it back, and your browser shows it. 'Client-side' = runs in your browser. 'Server-side' = runs on a remote computer.",
+    exp:"Static apps (like this flashcard app) are pure client-side — just files your browser downloads and runs. No server needed beyond file hosting. The moment you need user accounts, a database, or private logic, you need a server. That's when complexity jumps significantly." },
 
-  { id:20, cat:"Portfolio & Craft",
-    q:"Tell me about a design decision you made against what AI suggested.",
-    a:"The AI kept surfacing the statistically optimal pattern — the one that tested well everywhere else. But our users had a specific context that made it wrong for us. I pushed back, ran our own test, and the data proved it. The AI was pattern-matching on broad data; I had specific context it didn't.",
-    exp:"Interviewers ask this to check you're not deferring to AI uncritically. This answer shows you have specific context that overrides generalised patterns — and that you test rather than assert. 'Broad data vs. specific context' is a useful mental model that signals sophisticated AI literacy." },
+  { id:19, cat:"Web Vocabulary",
+    q:"What does 'deploying' mean?",
+    a:"Taking code that runs on your computer and putting it on a server so anyone with the URL can use it. Think of it like publishing: your draft is local (on your machine), deploying is going live. Services like Vercel, Netlify, and GitHub Pages make this one click. The deployed version is what your users see — local changes don't affect it until you deploy again.",
+    exp:"This flashcard app is deployed to GitHub Pages. Every time code is merged to the main branch, GitHub automatically re-deploys it. This is called continuous deployment — push your change, and within a minute it's live at the public URL. No manual steps." },
 
-  { id:21, cat:"Portfolio & Craft",
-    q:"How do you brief an AI tool for design work?",
-    a:"Like briefing a very fast, very literal junior designer. I'm specific about constraints, explicit about the audience, clear about what success looks like, and I always include what I don't want. The biggest mistake I see is prompting for an output rather than a problem. 'Design a homepage' gets generic. 'Help me find a metaphor for X that works for a sceptical Y user' gets useful.",
-    exp:"Shows hands-on, opinionated experience. The 'fast, literal junior designer' metaphor is memorable and accurate. The distinction between output prompts and problem prompts is the practical insight that demonstrates real craft experience with AI tools. This answer is hard to fake — you have to have done the work to say it confidently." },
+  { id:20, cat:"Web Vocabulary",
+    q:"What is localhost?",
+    a:"Your own computer acting as a server — a private test environment only you can see. When an AI says 'open localhost:3000', it means: the app is running on your machine, open your browser and go to that address to see it. Nothing on localhost is visible to anyone else. It never has a public URL until you deploy.",
+    exp:"The number after the colon (3000, 8080, etc.) is the 'port' — like an apartment number within the building that is your computer. Different apps run on different ports so they don't collide. You don't need to understand ports deeply — just know that localhost:XXXX means 'my machine, this particular app'." },
 
-  { id:22, cat:"Portfolio & Craft",
-    q:"What's something AI is genuinely bad at that you actively protect in your process?",
-    a:"Genuine novelty. AI is a sophisticated average — it generates from what already exists. The spaces where design moves culture rather than reflects it, where we're imagining something that doesn't yet exist — those still require human creative courage. I protect the moments in my process where I'm speculating about what could be, not just optimising what is.",
-    exp:"Philosophically rich and memorable. 'AI is a sophisticated average' is a useful mental model. 'Protecting speculative design space' signals creative ambition. This answer elevates the conversation. It's the kind of thing that gets quoted after the interview when the hiring team is deciding — the answer that made them think." },
+  { id:21, cat:"Web Vocabulary",
+    q:"What is the difference between frontend and backend?",
+    a:"Frontend is everything the user sees and touches — UI, design, interactions. Backend is everything hidden — databases, user accounts, business logic, server processing. A flashcard app with hardcoded cards is pure frontend. Add user accounts with saved progress synced across devices and you need a backend. Vibe coding is easiest for frontend; backend adds security complexity.",
+    exp:"This flashcard app is frontend-only — your progress is stored in your browser's localStorage, not on any server. That means if you clear your browser data, progress resets. A backend would store your progress to a database so you could access it from any device. Backend = more powerful, more complex, more things that can go wrong." },
 
-  // Ethics & Responsibility
-  { id:23, cat:"Ethics & Responsibility",
-    q:"How do you approach bias in AI products you're designing?",
-    a:"I treat bias detection as a design research activity, not an engineering QA step. I run structured equity audits: who does this work well for? Who does it fail? I look especially at users who are already underserved — because AI systems tend to amplify existing inequalities, not create new ones.",
-    exp:"Shows bias in AI isn't an engineering problem that happens after design — it's a design problem. 'Amplifying existing inequalities' is accurate and shows you've read in this space beyond surface-level coverage. Positions you as a designer who leads on this, not just one who agrees with it when it's raised." },
+  { id:22, cat:"Web Vocabulary",
+    q:"What are browser dev tools and when would you use them?",
+    a:"The hidden panel in every browser (open with F12 or right-click → Inspect). Most useful parts: Console shows errors in red — copy and paste these to your AI when something's broken. Elements lets you see and live-edit the HTML structure. Network shows what's being loaded. You don't need to understand all of it — 'check the console for errors' alone is worth knowing.",
+    exp:"When something in your app is broken and the AI can't figure out why just from the code, open the Console tab and look for red error messages. Copy the error text and paste it to the AI. This single habit will save you more time than almost anything else when vibe coding." },
 
-  { id:24, cat:"Ethics & Responsibility",
-    q:"How do you decide what AI should and shouldn't do in a product?",
-    a:"I use a capability / desirability / appropriateness framework. Just because AI can do something doesn't mean users want it done, and just because users want it doesn't mean it's appropriate. The hardest calls are things that are capable and desirable but shouldn't be automated — healthcare decisions, grief support, financial advice that carries real consequence.",
-    exp:"Signals principled thinking beyond 'is this technically possible.' Having a clear framework for what AI shouldn't do is rare and signals maturity. Interviewers building responsible AI products find this framing immediately useful — it's the kind of thinking they need on the team, not just in policy documents." },
+  { id:23, cat:"Web Vocabulary",
+    q:"What does 'open source' mean and why does it matter for builders?",
+    a:"Open source means the code is publicly available and free to use, modify, and share. Most tools and libraries your AI uses are open source — they're building blocks it can incorporate into your project. Open source libraries save you months of work, and most are free. When AI adds a library to your code, it's pulling in someone else's open source work.",
+    exp:"The entire web is built on open source. React (Facebook), Vue, Tailwind CSS, Node.js — all open source. Your AI has been trained on open source code, knows how to use open source libraries, and will reach for them by default. You're benefiting from decades of shared work every time you vibe code." },
 
-  { id:25, cat:"Ethics & Responsibility",
-    q:"What does 'human-centred AI' mean to you in practice?",
-    a:"The human stays in control of the decisions that matter to them. AI can automate the tedious parts, suggest, predict, assist — but moments where a user's agency is at stake should have a human decision point. Practically: I design explicit confirmation steps before AI takes consequential action, and I make it easy to override, correct, and undo.",
-    exp:"Avoids the buzzword trap — translates a value into specific design decisions: confirmation steps, override mechanisms, undo functionality. This is the answer that proves you can implement human-centred AI, not just advocate for it. Concrete and actionable is the difference between sounding good and being believed." },
+  // APIs
+  { id:24, cat:"APIs",
+    q:"What is an API in plain language?",
+    a:"A way for two software things to talk to each other. Think of it like a restaurant menu: the kitchen (a service) has capabilities, the menu (the API) defines what you can order and how to order it, and you (your app) place the order. You don't need to know how the kitchen works — just how to order. The result comes back in a predictable format.",
+    exp:"API stands for Application Programming Interface. Everything you build with vibe coding that connects to external services — weather data, maps, payments, AI models — goes through APIs. Understanding what an API is, conceptually, unlocks most of what's possible to build without a backend." },
 
-  { id:26, cat:"Ethics & Responsibility",
-    q:"How do you handle a brief that asks you to design something you think is harmful?",
-    a:"I raise it specifically — not 'this feels wrong' but 'this pattern has caused X harm in these contexts, and here's what I'd suggest instead.' Most teams haven't thought it through rather than consciously chosen harm. If the response is 'ship it anyway,' that's information I use in deciding whether this is the right team for me.",
-    exp:"Demonstrates ethical backbone without being preachy or unrealistic. The specificity — documenting concerns with evidence, offering alternatives — shows you know how to be effective, not just principled. The last sentence signals professional self-respect without drama. Interviewers who share these values will recognise it immediately." },
+  { id:25, cat:"APIs",
+    q:"What is a REST API and why is it the most common kind?",
+    a:"A convention for how to structure requests — using URLs as addresses. REST APIs use verbs and URLs: GET /users fetches a list of users, POST /users creates one. It's the most common because it's simple and works in any language. When vibe coding, you'll often connect to REST APIs to pull in data (weather, maps, stock prices) or trigger actions (send an email, create a calendar event).",
+    exp:"When an AI says 'I'll call the OpenWeather REST API', it means: I'll send a web request to a specific URL with your location, and it'll send back weather data in JSON format. You don't need to know the details — but knowing 'REST API = URL + verb + response' helps you understand what's happening." },
 
-  { id:27, cat:"Ethics & Responsibility",
-    q:"What does responsible AI design mean day-to-day, not just in principle?",
-    a:"It means asking the uncomfortable question before shipping, not after. Before we launch: who does this fail? Who isn't represented in our dataset? What happens if this is wrong at scale? I try to make those questions a normal part of the design process — not a compliance checklist that happens at the end.",
-    exp:"'Before shipping, not after' is the key distinction. The three specific questions — who fails, who's missing, what happens at scale — are practically useful and memorable. Making responsible design a process habit rather than a gate signals maturity. This shows it's something you actually do, not something you aspire to." },
+  { id:26, cat:"APIs",
+    q:"What is an API key and how should you treat it?",
+    a:"A secret password that identifies your app when it calls a service. Like a hotel key card — it lets you in but also tracks what you do and charges your account. Treat it like a real password: never paste it into a public GitHub repo, never share it in chat, never write it directly in code files. Use environment variables instead. If a key leaks, rotate it immediately from the service's dashboard.",
+    exp:"Bots continuously scan public GitHub repos for exposed API keys. A leaked OpenAI key can accumulate thousands of dollars in charges within hours before you notice. This is one of the most common and costly mistakes in vibe coding. The fix is simple — store keys in a .env file that's never committed to git." },
 
-  // Collaboration
-  { id:28, cat:"Collaboration",
-    q:"How do you work with data scientists and ML engineers?",
-    a:"I've learned enough of their language to ask useful questions: What's the model's confidence distribution? What are the edge cases where it fails? What data was it trained on? I don't pretend to be an engineer, but I can have a technical conversation that makes the collaboration productive. The best AI design work I've done happened with design and ML in the room together — not in handoffs.",
-    exp:"The question behind this is: are you a design diva who throws specs over the wall? The specific questions you know to ask signal genuine technical fluency without overclaiming. 'In the room together, not in handoffs' shows you understand that the real collaboration challenge in AI is timing, not just communication skills." },
+  { id:27, cat:"APIs",
+    q:"What does it mean to 'call an API'?",
+    a:"Sending a request from your app to another service and waiting for a response. Like texting someone — you send a message (the request), they reply (the response). The request has: a URL (who to contact), a method (what to do — GET to fetch data, POST to send data), and sometimes headers or a body (authentication and the data you're sending). The response comes back, usually as JSON.",
+    exp:"When this flashcard app gets built by Claude Code, Claude is 'calling' the GitHub API to push files, create branches, and merge pull requests — all through API calls. Every modern software product is a web of API calls. Understanding this helps you see what's connectable and what's possible." },
 
-  { id:29, cat:"Collaboration",
-    q:"How do you communicate UX concerns about AI to non-design stakeholders?",
-    a:"I bring evidence and I make the user visible. 'Users are confused' is easy to dismiss. 'Users expected the AI to do X, and when it did Y, 40% abandoned at this step' is not. I've found narrating the emotional experience of an AI failure is especially powerful with technical stakeholders — it makes abstract failure concrete.",
-    exp:"Shows you translate UX into language that moves decisions. 'Make the user visible' is a strong framing. The specific example structure (40% abandoned at this step) shows you think in data, which builds credibility with technical audiences who might otherwise dismiss design concerns as subjective." },
+  { id:28, cat:"APIs",
+    q:"What is a webhook?",
+    a:"A reverse API call — instead of you asking for information, the service reaches out to you when something happens. Example: 'Call my app whenever a payment is made.' Webhooks are event-driven — they push data to you. Commonly used for payment confirmations, form submissions, and real-time notifications. Set-and-forget: you register a URL once, the service calls it automatically.",
+    exp:"Regular API call: you ask → service responds (you're in control of timing). Webhook: something happens → service calls you (the service is in control of timing). Both are essential. Payment flows (Stripe), form tools (Typeform), and messaging platforms (Slack) all use webhooks to notify your app of events." },
 
-  { id:30, cat:"Collaboration",
-    q:"How do you align with PMs on AI feature scope?",
-    a:"I push for explicit agreement on what 'good' looks like before a single pixel is designed. For AI features that's harder because output is variable — so I want alignment on: what does the acceptable range of outputs look like? What does failure look like? Who owns the decision when the AI is wrong? Scoping without those agreements leads to design disagreements disguised as scope disagreements later.",
-    exp:"Shows strategic process thinking specific to AI product development. 'Design disagreements disguised as scope disagreements' is something only someone who's been through the experience would say. Signals you've shipped AI features in cross-functional teams — not just worked on design concepts in isolation." },
+  { id:29, cat:"APIs",
+    q:"What is JSON and why do APIs use it?",
+    a:"JSON (JavaScript Object Notation) is a text format for structured data — the common language APIs use to send information. It looks like: {\"name\": \"Luisa\", \"role\": \"designer\", \"level\": 5}. Key-value pairs, nested as needed. It's human-readable and works in every programming language. When you see an API response, it's usually JSON.",
+    exp:"JSON is so ubiquitous that understanding its shape — curly braces for objects, square brackets for lists, colon-separated key-value pairs — lets you read API responses even without knowing how to code. When you ask AI to 'get the user's name from the API response', it's extracting a value from JSON." },
 
-  { id:31, cat:"Collaboration",
-    q:"How do you advocate for UX when leadership is excited about an AI capability?",
-    a:"I match the energy on the opportunity and then add one question: 'For which user, in which moment?' Capability-first thinking is exciting, and I don't want to be the person who kills ideas. But capability without a user context is a demo, not a product. My job is to get to the user context fast — not to say no.",
-    exp:"Avoids the 'UX as department of no' trap. 'For which user, in which moment?' is practical and non-threatening. Shows you can be a creative collaborator who adds user thinking to capability conversations rather than blocking them. This is the only way to have lasting influence in an organisation that's excited about AI." },
+  { id:30, cat:"APIs",
+    q:"What's the difference between a free API tier and a paid one?",
+    a:"Free tiers have rate limits — a cap on requests per minute or month. Fine for prototypes and personal tools. Paid tiers lift those limits and add reliability guarantees. Most APIs have both. When prototyping, start free. Before launching something real, check the pricing — some APIs look free until you get users. AI APIs (Claude, GPT) charge per token even on 'free' plans above a threshold.",
+    exp:"A common mistake: build a prototype on a free tier, it gets popular, costs spike overnight. Always read the pricing page before you build anything on an external API. The questions to ask: what happens when I hit the limit? What does it cost per request at scale? Is there a monthly cap I might exceed?" },
 
-  { id:32, cat:"Collaboration",
-    q:"What's your ideal relationship with the AI model powering a product you're designing?",
-    a:"Early access and ongoing access. I want to understand what the model does with edge cases, what it fails on, and what the confidence distribution looks like across my design scenarios. If I'm designing blind to the model's behaviour, I'm designing wrong. The best AI product designers treat the model almost like a user they need to understand.",
-    exp:"'Treat the model like a user you need to understand' is memorable and accurate. Shows you understand the model is a collaborator in the design process, not just a backend capability. This signals process maturity that most candidates lack and that engineering teams find immediately credible." },
+  // AI Product Patterns
+  { id:31, cat:"AI Product Patterns",
+    q:"What is RAG (Retrieval Augmented Generation)?",
+    a:"Giving the AI access to your specific documents or data at the moment it answers. Instead of relying only on its training, the AI first searches your knowledge base, pulls in relevant chunks, and uses those to generate its response. This is how 'chat with your docs' products work — the AI isn't trained on your docs, it retrieves them on demand.",
+    exp:"RAG is why an AI assistant for your company can answer questions about your internal processes without you having to train a custom model (which is expensive). You just give it access to your documents at query time. It's one of the most commercially useful AI patterns and the foundation of most enterprise AI products." },
 
-  // Research
-  { id:33, cat:"Research",
-    q:"How do you research for AI features where users don't yet know what they want?",
-    a:"I use provocations instead of preference questions. I build rough AI prototypes — even Wizard-of-Oz simulations — and study behaviour, not opinion. When people use a fake-working AI feature, their reactions are far more honest than their survey answers. 'Would you use a feature that auto-drafts your emails?' gives you social desirability bias. Watching someone use it gives you reality.",
-    exp:"Shows methodological sophistication specific to AI research. The Wizard-of-Oz reference signals research experience. The critique of survey-based AI research is sharp and correct — it builds credibility with research-forward organisations. This answer is hard to fake without having actually run AI user research sessions." },
+  { id:32, cat:"AI Product Patterns",
+    q:"What's the difference between an AI chatbot and an AI agent?",
+    a:"A chatbot responds to one message at a time — you ask, it answers, done. An agent can take a sequence of actions toward a goal: search the web, write a file, call an API, check the result, try again. Chatbots are reactive. Agents are goal-directed and keep going until the task is complete. Claude Code is an agent — it doesn't just answer questions, it takes actions in your codebase.",
+    exp:"The shift from chatbot to agent is the most significant change happening in AI products right now. An agent that can browse the web, write emails, book meetings, and update databases on your behalf is categorically more powerful — and more risky — than a chatbot. Designing agent UX requires thinking about trust, confirmation, and undo in new ways." },
 
-  { id:34, cat:"Research",
-    q:"How do you research mental models around AI with sceptical users?",
-    a:"I don't start with AI — I start with the job they're trying to do and the frustrations they have. I find moments where they're doing something tedious or making guesses. That's where AI fits naturally. Scepticism usually evaporates when you show AI as a solution to a problem they already have, rather than a technology to adopt.",
-    exp:"Shows empathy-first thinking. AI scepticism is often really about poor framing — and recognising that is practically useful in research sessions. 'Start with the job' is JTBD vocabulary that signals product research maturity. This reframe from technology adoption to problem solution is the one that actually works." },
+  { id:33, cat:"AI Product Patterns",
+    q:"What does 'memory' mean in an AI product and why is it hard?",
+    a:"By default, AI has no memory between conversations — each session starts fresh. 'Memory' means the product stores past interactions and includes relevant ones in future prompts. It's hard because: what to remember, how long to keep it, what to include in context, and what to discard are all non-trivial design decisions. Good memory feels personal. Bad memory feels surveillance-y.",
+    exp:"This is one of the most important UX design problems in AI products. Users expect AI to remember them — and they're surprised and frustrated when it doesn't. But they're also unsettled when it remembers something they didn't realise it was tracking. Memory design is consent design." },
 
-  { id:35, cat:"Research",
-    q:"How do you evaluate trust in AI from a research perspective?",
-    a:"I look at behavioural signals, not self-reported ones. Do users accept AI suggestions? Do they verify them? Do they modify them before using? Over time, does verification behaviour decrease as trust builds — or increase as trust erodes? Self-reported trust scores are almost useless — people claim to trust AI while over-verifying every output.",
-    exp:"The distinction between behavioural and self-reported trust is crucial and often missed. The trust arc — builds, plateaus, erodes — is a sophisticated frame that shows depth. This signals you've actually studied trust in AI contexts, not just talked about it. It's the kind of research insight that makes hiring teams sit up." },
+  { id:34, cat:"AI Product Patterns",
+    q:"What is 'tool use' or 'function calling' in AI?",
+    a:"Giving the AI the ability to trigger specific actions — search the web, query a database, call an API — instead of just generating text. The AI decides when to use a tool, calls it, gets the result, and incorporates it into its response. This is what makes AI agents powerful. Text generation is the AI's voice; tool use is what lets it actually do things in the world.",
+    exp:"When Claude Code runs a terminal command, edits a file, or pushes to GitHub, it's using tools. The AI model itself just generates text — but it can generate a special kind of text that says 'call this function with these parameters', and the system executes it. This is the architecture behind every AI agent." },
 
-  { id:36, cat:"Research",
-    q:"How do you handle a research finding that contradicts what the AI team believes?",
-    a:"I bring it directly and specifically — not 'users don't want this' but 'users in our study did X instead of Y when the AI suggested Z, and here's the pattern across 12 sessions.' Data vs. data conversations are healthier than instinct vs. instinct. And I look for where the gap comes from — ML teams often have aggregate behavioural data; research has qualitative depth. The real insight is usually in reconciling both.",
-    exp:"Evidence-based conflict resolution. Positions you as a bridge-builder, not a territory-defender. The specificity (12 sessions, concrete behaviour) shows you make research findings actionable. 'Reconciling aggregate data with qualitative depth' is sophisticated and true — shows you understand both worlds and can work across them." },
+  { id:35, cat:"AI Product Patterns",
+    q:"What is AI hallucination and how do you design around it?",
+    a:"When AI confidently states something false. It's not lying — it's generating plausible-sounding text that happens to be wrong. Design patterns that reduce harm: don't use AI for anything needing 100% accuracy without human verification, show sources when possible, let users edit AI output, add disclaimers for high-stakes content. Never make AI the sole source of truth for facts.",
+    exp:"Hallucination is a fundamental property of current language models, not a bug that will be fixed in the next version. The right design response is to treat all AI-generated factual claims as drafts to be verified, not answers to be trusted. Design your product so that the cost of a hallucination is low, or the verification step is easy." },
 
-  // Leadership
-  { id:37, cat:"Leadership",
-    q:"How do you help a design team adapt to AI tools?",
-    a:"I make the first experiments low-stakes and shareable. I don't mandate new workflows — I find the one designer who's already experimenting and give them room to share results with the team. Change in creative teams comes from peer demonstration, not top-down mandate. And I'm honest that the tools are imperfect — psychological safety to experiment badly is the prerequisite to experimenting well.",
-    exp:"Shows leadership that works with human psychology rather than against it. 'Peer demonstration over mandate' is mature team leadership. The honesty about imperfection signals psychological safety — exactly what teams need to change. This is what senior leadership roles are looking for: the ability to move a team without forcing it." },
+  { id:36, cat:"AI Product Patterns",
+    q:"What role does a system prompt play in an AI product?",
+    a:"It's the invisible layer that shapes every interaction — the AI's permanent instructions before the user says anything. It defines the AI's role, tone, what it can and can't discuss, what format to respond in, and any product-specific rules. As a builder, you write and iterate the system prompt. It's the most powerful design lever you have and users usually never see it.",
+    exp:"The system prompt is like the constitution of your AI product. Every user interaction is shaped by it. Small changes to the system prompt can completely transform how the product feels. When a product feels inconsistent, incoherent, or off-tone, the problem is usually the system prompt. This is a design skill, not a coding skill." },
 
-  { id:38, cat:"Leadership",
-    q:"What does a great AI design team culture look like?",
-    a:"Curious, critical, and non-precious. Curious about what AI can do. Critical enough to question what it should do. Non-precious enough to use AI output as a starting point and discard it when it's not right. The teams that struggle are either too excited — accepting AI output without judgment — or too defensive — refusing AI out of creative pride.",
-    exp:"'Curious, critical, non-precious' is memorable and testable. The two failure modes show you've seen enough teams to recognise patterns. This answer signals culture leadership, not just personal practice. Interviewers building AI teams want leaders who can name and navigate these failure modes — this shows you can." },
+  { id:37, cat:"AI Product Patterns",
+    q:"What is multimodal AI and what does it unlock for builders?",
+    a:"AI that works with multiple types of input — text, images, audio, video, code. Claude, GPT-4o, and Gemini are all multimodal. What this unlocks: analysing design screenshots, describing images, reading charts, processing documents with visuals. You can feed AI a screenshot of a UI and ask 'what's wrong with this layout' and get a useful, specific answer.",
+    exp:"Multimodal unlocks a new class of workflows for designers specifically. Feeding a screenshot into AI and getting design critique, accessibility issues, or copy suggestions is already practical. The same applies to analysing competitor UIs, reviewing design systems, or extracting text from images. These were impossible without code six months ago." },
 
-  { id:39, cat:"Leadership",
-    q:"How do you think about upskilling a design team for the AI era?",
-    a:"I frame it as expanding what's possible, not replacing what exists. The designers who thrive see AI as expanding their creative range. I try to make the first AI wins visible and celebratory, and I frame the conversation as 'what could we do now that we couldn't before' — not 'what do we have to change.'",
-    exp:"Positive framing that avoids both hype and fear. 'Expanding creative range' is the right metaphor. Making first wins visible is practical leadership. Interviewers building AI teams want leaders who will bring the team along — not just be personally excited about AI while the team stays stuck." },
+  { id:38, cat:"AI Product Patterns",
+    q:"What is latency and why does it matter when designing AI features?",
+    a:"The time between the user's request and the AI's response. AI APIs are slower than regular database calls — often 1–5 seconds. Designers who ignore latency build products that feel broken. Design patterns: show thinking indicators, stream responses word-by-word so users see progress, avoid chaining multiple AI calls in sequence, pre-generate content when you can predict what users will need.",
+    exp:"Streaming (showing words as they generate) is one of the most impactful design decisions in AI UX. It makes a 4-second wait feel productive rather than stuck. ChatGPT popularised this pattern — it made AI feel faster than it was by starting to show output immediately. This is now the expected behaviour in any AI chat interface." },
 
-  { id:40, cat:"Leadership",
-    q:"How do you present AI design work to an executive audience?",
-    a:"I lead with user outcomes, not AI capability. Executives are rarely moved by 'we built an AI feature.' They're moved by 'users who used this feature completed their task 3x faster and churned at half the rate.' I translate the AI experience into business and human terms and save the technical story for when they ask how.",
-    exp:"Shows executive communication maturity. 'Outcomes over capabilities' is the right frame for C-suite audiences. The structure — lead with outcomes, offer technical depth on request — is a communication pattern that distinguishes senior designers. Interviewers want to know you can make the case to leadership, not just to design teams." },
+  // Git & GitHub
+  { id:39, cat:"Git & GitHub",
+    q:"What is a git repository?",
+    a:"A folder where git tracks the history of every change ever made to your files. Like 'track changes' in a document, but for your entire project, forever. Every save (commit) is recorded with who changed what and when. You can go back to any earlier version, see exactly what changed between versions, and multiple people can work on the same project without overwriting each other.",
+    exp:"Git was invented by Linus Torvalds (creator of Linux) in 2005. It's now the universal standard for code version control. GitHub is a website that hosts git repositories and adds collaboration features. When Claude Code pushes changes and creates pull requests, it's all happening in a git repository on GitHub." },
 
-  // Mindset
-  { id:41, cat:"Mindset",
-    q:"What would make you worried about an AI product team you were considering joining?",
-    a:"If the value proposition depends on users not understanding how it works — if the 'magic' is really opacity. Or if the team talks about AI as the product rather than the means to a user outcome. AI is a capability, not a value proposition. When I hear 'we're building AI for X,' I want to understand what problem X users have that AI specifically solves.",
-    exp:"Shows you have a principled view and that you're evaluating them as much as they're evaluating you — which signals confidence. 'Opacity as value prop' and 'AI as means not product' are specific and correct concerns. This tells interviewers you won't just execute — you'll push for products worth building. Most teams want that." },
+  { id:40, cat:"Git & GitHub",
+    q:"What is a git commit?",
+    a:"A named snapshot of your project at a specific moment — like saving a checkpoint in a game. The message describes what changed: 'Add dark mode toggle' or 'Fix button alignment on mobile'. Commit often with specific messages. If something breaks, you want a recent, clearly-labelled checkpoint to return to — not one from two weeks ago that says 'stuff'.",
+    exp:"In this session, every time Claude Code finished a change to the flashcard app, it made a commit with a descriptive message and pushed it to GitHub. You can see the full history in the GitHub repo. Each commit is a reversible, documented snapshot — the opposite of saving over a file and losing what came before." },
 
-  { id:42, cat:"Mindset",
-    q:"Are you more optimistic or pessimistic about AI's impact on design as a field?",
-    a:"Optimistic about the work, cautious about the transition. AI expands what's possible — more people making better things faster is good. What I'm cautious about is the transition: the designers who adapt will do more interesting work; those who don't will be displaced before they realise it. That's not pessimism — it's urgency.",
-    exp:"Avoids false enthusiasm or reflexive pessimism. 'Optimistic about the work, cautious about the transition' is nuanced and credible. Ending with 'urgency' rather than 'concern' frames you as someone who leans in. Interviewers want designers who are clear-eyed about disruption without being paralysed by it." },
+  { id:41, cat:"Git & GitHub",
+    q:"What is a branch in git?",
+    a:"A parallel version of your code where you can make changes without affecting the main version. Branch off, experiment, and if it works, merge it back. If it doesn't, delete the branch — nothing is lost. The main branch (usually called 'main') is what's live. You never build directly on main — you branch, build, then merge.",
+    exp:"In this session, all changes were made on a branch called 'claude/app-preview-xpqwqi', then merged to 'main' via a pull request. The main branch remained stable while work happened on the feature branch. This pattern — branch → build → review → merge — is how all professional software development works." },
 
-  { id:43, cat:"Mindset",
-    q:"What's a wrong assumption many designers have about AI?",
-    a:"That their job is to use AI tools. Their job is to design experiences. AI tools are just the current best instruments for that job. Designers building careers around specific tools will be stranded when those tools change. Designers building careers around judgment, taste, and user empathy will find AI makes them more powerful with every iteration.",
-    exp:"Slightly provocative but well-argued. Distinguishes between means (tools) and end (design judgment) in a way that's true and reassuring to interviewers investing in a designer long-term. This is both a challenge and a reassurance — and that's the best kind of interview answer: it makes people think and then agree." },
+  { id:42, cat:"Git & GitHub",
+    q:"What is a pull request (PR)?",
+    a:"A request to merge one branch into another — usually a feature branch into main. It's also a review moment: teammates can see exactly what changed, comment on specific lines, and approve before it goes live. Even working alone, PRs create a record of why changes were made. The 'pull' in the name means 'please pull my changes into your branch.'",
+    exp:"In this session, Claude Code created pull requests to merge the AI Agents content, the Designer Coaching content, and the SM-2 spaced repetition upgrade — each as a separate PR. You could see the diff (what changed), the commit message, and merge it yourself. PRs are the unit of change review in professional development." },
 
-  { id:44, cat:"Mindset",
-    q:"What's the most important design principle for the AI era?",
-    a:"Stay on the side of the user. As AI capabilities grow, there's constant pressure to use AI to optimise for business metrics at the user's expense — engagement maximisation, dark patterns at scale, persuasion without consent. The most important principle is the oldest one: design for the person using the product, not just the person paying for it. AI makes this harder and more urgent.",
-    exp:"Takes a principled stand without being naive. Naming specific risks — engagement maximisation, dark patterns at scale — shows you've thought about AI ethics concretely. 'Harder to do and more urgent to commit to' is honest and values-driven without being preachy. A strong answer to close an interview with." },
+  { id:43, cat:"Git & GitHub",
+    q:"What is GitHub Pages and how do you use it?",
+    a:"A free hosting service built into GitHub — it turns a repository into a live website automatically. Setup: go to your repo Settings → Pages → pick 'main branch / root folder' → save. GitHub deploys your index.html at yourusername.github.io/repo-name. Every time you merge to main, it re-deploys within a minute. No server setup, no cost, no configuration.",
+    exp:"This flashcard app is hosted on GitHub Pages. The URL is mikhabaryshnikov.github.io/games — free, automatic, and fast. It works for any static web app (HTML + CSS + JS with no backend). It won't work for apps that need a server or database — for those, Vercel or Railway are the next step up." },
 
-  { id:45, cat:"Mindset",
-    q:"How do you stay current in AI without it becoming overwhelming?",
-    a:"I pick one thing to go deep on each quarter instead of skimming everything. I follow people who write critically about AI, not just enthusiastically. And I build things — the fastest way to understand what AI can actually do is to use it to make something, fail, and adjust. Reading about it is a distant second.",
-    exp:"'One deep thing per quarter' is defensible and specific. Preference for critical voices signals intellectual maturity. 'Build things' is the right answer for designers — it's the learning method that produces real judgment, not just vocabulary. This shows you have an intentional learning practice, which is itself a signal of professional seriousness." },
+  { id:44, cat:"Git & GitHub",
+    q:"What does 'merge' mean in git and what is the difference between merge and squash?",
+    a:"Merge combines two branches, preserving all their individual commits. Squash merge takes all commits from a branch and collapses them into one commit on main. Squash is cleaner history (one entry per feature instead of 20 work-in-progress saves). For solo projects with AI assistance, squash merge is usually the right choice — it keeps the main branch history readable.",
+    exp:"In this session, all pull requests were merged using squash. That's why the main branch history shows clean entries like 'SM-2 spaced repetition + 4-tier confidence rating' rather than 20 intermediate commits like 'WIP', 'fix typo', 'try again'. Clean history makes it easier to understand what changed and when." },
 
-  { id:46, cat:"Mindset",
-    q:"Why do you want to work on AI products specifically?",
-    a:"Because this is the most consequential design work of my career. The decisions being made right now about how AI experiences are designed will shape how millions of people relate to technology and information for decades. I want to be in the room where those decisions are made, doing the work well. That's not something you pass up.",
-    exp:"Conviction without arrogance. 'Most consequential design work of my career' is a strong, defensible claim. The scope — millions of people, decades — shows you understand what's at stake. This is how you close an interview: clear-eyed about the significance of the work, and specific about why you want to be doing it." },
+  // Reading Code
+  { id:45, cat:"Reading Code",
+    q:"What are the most important red flags to scan for in AI-generated code?",
+    a:"Five to check: (1) Hardcoded secrets — API keys or passwords directly in code. (2) eval() or exec() — runs arbitrary code, almost never safe. (3) File reads/writes without path checking. (4) No error handling around network calls — silent failures. (5) Comments saying 'TODO' or 'in a real app...' — the AI left a placeholder and the feature doesn't actually work.",
+    exp:"You don't need to understand the code to scan for these. Use Ctrl+F in any text editor to search for 'API_KEY', 'password', 'TODO', 'eval('. These five patterns catch the most common and most dangerous AI-generated code problems. When in doubt, paste the suspicious section back to the AI and ask: 'Is there anything concerning here?'" },
 
-  // Craft Details
-  { id:47, cat:"Portfolio & Craft",
-    q:"How do you design conversational AI interfaces?",
-    a:"Like a relationship, not a feature. I think about register — how formal or casual? How does it handle disagreement? What happens when it's wrong? The hardest part is designing uncertainty states — when the AI isn't sure, that uncertainty needs to surface in a way that maintains trust rather than destroying it.",
-    exp:"'Relationship, not a feature' is the right framing for conversational AI. The focus on uncertainty states is the specific insight that shows experience — most designers forget that AI's uncertainty is a first-class design problem, not an edge case to handle with a loading spinner." },
+  { id:46, cat:"Reading Code",
+    q:"What is a hardcoded credential and why is it dangerous?",
+    a:"An API key, password, or secret written directly in the code: const API_KEY = 'sk-abc123...'. Dangerous because code goes into GitHub, bots continuously scan public repos for exposed keys, and they're found within minutes and abused (you pay the bill). Fix: use environment variables — the key lives in a config file (.env) that's never committed. Ask AI to 'replace hardcoded keys with environment variables.'",
+    exp:"This is the most costly mistake in vibe coding. Exposed OpenAI keys, Stripe keys, and AWS credentials are found by automated bots within minutes of being pushed. The financial consequences can be severe. The fix is simple and AI can do it for you — but you have to know to ask. 'Are there any hardcoded secrets in this code?' should be a standard question before going public." },
 
-  { id:48, cat:"Portfolio & Craft",
-    q:"What's your view on using AI within design systems?",
-    a:"AI is great for generation within a system; poor at understanding why the system exists. I use AI to scale production — generating components and variants within established design and brand systems. But I'm sceptical of AI-generated design systems from scratch. The system encodes decisions that require deep user and brand context that AI doesn't have.",
-    exp:"Nuanced and practical. 'Within a system vs. to build one' is a mature distinction. Shows hands-on experience with AI in design systems work rather than theoretical opinions. Specific enough to start a real conversation about your process — which is exactly what good portfolio answers do." },
+  { id:47, cat:"Reading Code",
+    q:"What does it mean when code 'makes a network request'?",
+    a:"The code is reaching out to another server — either to fetch data or send data somewhere. Look for: fetch(), axios, XMLHttpRequest, or anything with a URL in it. Ask yourself: what data is being sent, where, and why? It's expected when calling a weather API. It's concerning when unexpected — for example, sending user data somewhere without your knowledge.",
+    exp:"Every network request is data leaving your app. For a simple flashcard app with no backend, there should be no network requests beyond loading the page itself. If you see fetch() calls in a personal project, ask AI: 'What data is this sending and where is it going?' Understanding your app's data flows is a security and privacy responsibility." },
 
-  { id:49, cat:"Designing AI Products",
-    q:"How do you design for accessibility in AI products?",
-    a:"AI can compress accessibility gaps or widen them — I design explicitly for gap compression. That means ensuring AI features work with screen readers, don't depend on visual interpretation, provide text alternatives for multimodal outputs, and don't add cognitive load for users who already have more to manage. The users historically underserved by products are often most harmed when AI isn't designed with them in mind.",
-    exp:"Shows the specific intersection of AI and accessibility — not checkbox compliance. 'Gap compression vs. widening' is a sharp framing. The connection between historically underserved users and AI risk shows you've thought about equity, not just usability. Signals a designer who leads on responsible design, not one who waits to be asked." },
+  { id:48, cat:"Reading Code",
+    q:"What are environment variables and why do AI-generated apps use them?",
+    a:"Key-value pairs set outside the code that the app reads at runtime — like settings that live in a secure config file rather than in the code itself. Pattern: process.env.API_KEY in the code, actual value stored in a .env file that's never committed to GitHub. When vibe coding, tell AI to always use environment variables for any keys or secrets.",
+    exp:"The .env file stays only on your computer (or server). The code only contains the variable name (like API_KEY), never the value. This way the code can be public while the secrets stay private. Make sure your .gitignore file lists .env — that's the file that tells git not to track it. Ask AI to add .env to .gitignore if it isn't already." },
 
-  { id:50, cat:"Mindset",
-    q:"What kind of AI design work are you most excited to do?",
-    a:"The work where the AI is invisible because it's working so well — where users don't think about the AI, they think about the outcome they got. The best AI UX is AI that disappears into the experience. I'm most excited by the challenge of designing AI that earns enough trust to become ambient.",
-    exp:"'Ambient AI' is the right vision for mature AI products. The framing of invisibility as the success state shows sophisticated product thinking. This is a strong closing answer — optimistic, specific about what quality looks like, and forward-looking. It shows you're thinking about the long-term arc of AI UX, not just the feature in front of you." }
+  { id:49, cat:"Reading Code",
+    q:"How do you ask AI to explain code it just wrote — and why should you do it?",
+    a:"Just ask: 'Explain what this code does, line by line, in plain English. Flag anything I should be aware of.' You don't need to understand the code to catch problems — you need to understand what it does. If the explanation reveals something unexpected (sends data somewhere, stores something permanently, requires a paid service), you want to know before deploying.",
+    exp:"Explanation is the non-technical builder's code review. You're not checking syntax — you're checking intent. 'Is this doing what I think it's doing?' is the question. AI is very good at explaining its own code clearly. This habit catches misunderstandings early, when they're easy to fix, rather than after you've built on top of broken assumptions." },
+
+  { id:50, cat:"Reading Code",
+    q:"Why should you probe AI-generated code that seems surprisingly simple or short?",
+    a:"AI often generates code that works in the happy path but skips edge cases, security checks, or error handling — because those make code longer and the prompt didn't ask for them. If a solution looks too clean, ask: 'What happens if the network request fails? What if the user inputs something unexpected? Is there anything this code doesn't handle?' Probing for gaps is more useful than assuming completeness.",
+    exp:"Short code feels like a win until it breaks. Error handling, input validation, and edge case coverage can easily triple the length of a working solution. AI defaults to the minimal implementation unless you specifically ask for robustness. 'Make this production-ready' or 'add error handling for all failure modes' are prompts worth adding before you ship anything real." }
+
 ];
 
 // ── CATEGORY COLORS ──────────────────────────────────────────────────────────
 const CAT_COLORS = {
-  "AI & Your Process":    "#a78bfa",
-  "Designing AI Products":"#38bdf8",
-  "Portfolio & Craft":    "#f472b6",
-  "Ethics & Responsibility":"#fb923c",
-  "Collaboration":        "#4ade80",
-  "Research":             "#facc15",
-  "Leadership":           "#f87171",
-  "Mindset":              "#c084fc"
+  "Prompt Craft":        "#a78bfa",
+  "Vibe Coding":         "#4ade80",
+  "Web Vocabulary":      "#38bdf8",
+  "APIs":                "#fb923c",
+  "AI Product Patterns": "#f472b6",
+  "Git & GitHub":        "#facc15",
+  "Reading Code":        "#f87171"
 };
 
 // ── DATE HELPERS ─────────────────────────────────────────────────────────────
@@ -711,7 +710,7 @@ function daysUntil(dateStr) {
 
 // ── PERSISTENCE ──────────────────────────────────────────────────────────────
 // v2: SM-2 schema — do not reuse v1 key
-const STORE_KEY = 'ai-designer-coaching-v2';
+const STORE_KEY = 'build-ai-era-v1';
 
 function loadState() {
   try { const s = localStorage.getItem(STORE_KEY); if (s) return JSON.parse(s); } catch(e) {}
